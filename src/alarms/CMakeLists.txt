@@ -8,3 +8,12 @@ add_library(clock-alarm-logic STATIC
     toneplayer.cpp
 )
 target_link_libraries(clock-alarm-logic PUBLIC clock-store PRIVATE PkgConfig::PipeWire)
+
+add_library(clock-alarms STATIC
+    alarmeditor.cpp
+    alarmrow.cpp
+    alarmspage.cpp
+    spring.cpp
+    timepicker.cpp
+)
+target_link_libraries(clock-alarms PUBLIC clock-page clock-alarm-logic clock-wheel)
