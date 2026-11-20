@@ -291,7 +291,7 @@ msgstr "Start"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Lap"
-msgstr "Runda"
+msgstr "Okrążenie"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
@@ -333,7 +333,7 @@ msgstr "Wznów"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
-msgstr "Pauza"
+msgstr "Wstrzymaj"
 
 #: src/timers/timermath.cpp
 #, python-brace-format
