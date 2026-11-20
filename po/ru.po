@@ -329,7 +329,7 @@ msgstr "Закрыть"
 
 #: src/timers/timercard.cpp
 msgid "Resume"
-msgstr "Пуск"
+msgstr "Дальше"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
