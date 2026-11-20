@@ -71,6 +71,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE clock-ui)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
+# The alarm service calls the application (RepeatTimer, open) and starts it if need be.
+configure_file(org.cutefish.Clock.service.in ${CMAKE_CURRENT_BINARY_DIR}/org.cutefish.Clock.service @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.cutefish.Clock.service DESTINATION ${CMAKE_INSTALL_DATADIR}/dbus-1/services)
+
 cutefish_add_translations(cutefish-clock SOURCES src DESKTOP_FILES cutefish-clock.desktop)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cutefish-clock.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 

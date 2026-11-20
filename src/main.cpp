@@ -51,6 +51,7 @@ int main(int argc, char** argv)
     clockapp::ClockWindow window({.bus = bus});
     auto activate = application.activateRequested.connect([&window](const std::string& token) { window.activate(token); });
     auto quit = application.quitRequested.connect([&app] { app.quit(); });
+    auto repeat = application.repeatTimerRequested.connect([&window](const std::string& id) { window.repeatTimer(id); });
     window.show();
     return app.run();
 }

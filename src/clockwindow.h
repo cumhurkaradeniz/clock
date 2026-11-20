@@ -55,6 +55,8 @@ public:
     // Kept in [View] Tab.
     void setTab(Tab tab, bool animated = true);
     bool isSwitching() const;
+    // Starts a timer of the store again from its full duration.
+    void repeatTimer(const std::string& id);
 
     cutefish::base::Signal<> tabChanged;
 

@@ -22,6 +22,11 @@ void App::publish(cutefish::base::dbus::Connection* bus)
             activateRequested.emit(activationToken);
         },
         cutefish::base::dbus::ArgumentNames{{"paths", "activationToken"}, {}});
+    // Only this process writes the alarms file, so the alarm service asks
+    // here to start a finished timer again.
+    m_object->addMethod(
+        "RepeatTimer", [this](const std::string& id) { repeatTimerRequested.emit(id); },
+        cutefish::base::dbus::ArgumentNames{{"id"}, {}});
     m_object->publish();
 }
 

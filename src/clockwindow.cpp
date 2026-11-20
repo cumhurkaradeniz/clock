@@ -16,6 +16,11 @@
 #include "ui/window.h"
 #include "ui/window_header.h"
 
+#ifdef CLOCK_HAS_TIMERS
+#include "store/store.h"
+#include "timers/timermath.h"
+#endif
+
 #include <algorithm>
 #include <cmath>
 
@@ -190,6 +195,17 @@ void ClockWindow::setTab(Tab tab, bool animated)
 // The outgoing page fades out quickly and drifts against the direction of
 // travel; the incoming one fades in over the whole time and slides in from
 // the side of travel. Both are layered, so a frame repaints neither.
+void ClockWindow::repeatTimer(const std::string& id)
+{
+#ifdef CLOCK_HAS_TIMERS
+    const int64_t nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(
+                              m_context->now().time_since_epoch()).count();
+    timermath::repeatTimer(ClockStore::inFolder(m_context->paths().data), id, nowMs);
+#else
+    (void)id;
+#endif
+}
+
 void ClockWindow::startTransition(Page* from, Page* to, int direction)
 {
     // A switch during a switch: the page leaving now is the one coming in,

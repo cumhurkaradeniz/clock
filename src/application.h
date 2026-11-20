@@ -38,6 +38,8 @@ public:
     // Another launch asked for the window; Clock opens no files.
     cutefish::base::Signal<const std::string&> activateRequested;
     cutefish::base::Signal<> quitRequested;
+    // The alarm service's Repeat on a finished timer's notification.
+    cutefish::base::Signal<const std::string&> repeatTimerRequested;
 
 private:
     std::unique_ptr<cutefish::base::dbus::Object> m_object;

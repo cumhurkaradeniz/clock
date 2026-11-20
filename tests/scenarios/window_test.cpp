@@ -4,8 +4,10 @@
 #include "windowfixture.h"
 
 #include "base/settings.h"
+#include "store/store.h"
 #include "ui/event.h"
 
+#include <chrono>
 
 using clockapp::Tab;
 using namespace cutefish::ui;
@@ -120,4 +122,28 @@ TEST(WindowTest, TheFileMenuClosesTheWindow)
 {
     WindowFixture fixture;
     EXPECT_TRUE(fixture.driver.chooseMenuItem("File", "Close Window"));
+}
+
+TEST(WindowTest, RepeatTimerStartsAFinishedTimerAgain)
+{
+    WindowFixture fixture;
+    const auto now = std::chrono::system_clock::time_point(std::chrono::seconds(1795167660));
+    fixture.window->context().setClock([now] { return now; });
+    const int64_t nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
+
+    clockapp::ClockStore& store = clockapp::ClockStore::inFolder(fixture.window->context().paths().data);
+    clockapp::RunningTimer finished;
+    finished.label = "Tea";
+    finished.durationMs = 180000;
+    finished.endsAtMs = nowMs - 5000;
+    const std::string id = store.setTimer(finished);
+
+    fixture.window->repeatTimer(id);
+    const clockapp::RunningTimer* repeated = store.timer(id);
+    ASSERT_NE(repeated, nullptr);
+    EXPECT_EQ(repeated->endsAtMs, nowMs + 180000);
+    EXPECT_EQ(repeated->label, "Tea");
+
+    fixture.window->repeatTimer("no-such-timer");
+    EXPECT_EQ(store.timers().size(), 1u);
 }
