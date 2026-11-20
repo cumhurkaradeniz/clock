@@ -1,0 +1,456 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cutefish-clock\n"
+"Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
+"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"PO-Revision-Date: 2026-11-21 01:08+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+msgid "New Alarm"
+msgstr "Nuova sveglia"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Edit Alarm"
+msgstr "Modifica sveglia"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+#: src/timers/timercard.cpp
+msgid "Repeat"
+msgstr "Ripeti"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+#: src/service/alarmservice.cpp
+msgid "Alarm"
+msgstr "Sveglia"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Label"
+msgstr "Etichetta"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Sound"
+msgstr "Suono"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+msgid "Snooze"
+msgstr "Posponi"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Delete Alarm"
+msgstr "Elimina sveglia"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Add"
+msgstr "Aggiungi"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Save"
+msgstr "Salva"
+
+#. TRANSLATORS: under the editor's time, such as "Rings in 7 hours 20 minutes".
+#: src/alarms/alarmeditor.cpp
+#, python-brace-format
+msgid "Rings {when}"
+msgstr "Suona {when}"
+
+#: src/alarms/alarmspage.cpp
+msgid "No Alarms"
+msgstr "Nessuna sveglia"
+
+#: src/alarms/alarmspage.cpp
+msgid "Alarms ring even when Clock is closed."
+msgstr "Le sveglie suonano anche quando Orologio è chiuso."
+
+#. TRANSLATORS: an alarm's label and when it repeats, such as "Wake Up, Weekdays".
+#: src/alarms/alarmspage.cpp
+#, python-brace-format
+msgid "{label}, {repeat}"
+msgstr "{label}, {repeat}"
+
+#: src/alarms/alarmtime.cpp
+msgid "Every Day"
+msgstr "Ogni giorno"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekdays"
+msgstr "Giorni feriali"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekends"
+msgstr "Fine settimana"
+
+#: src/alarms/alarmtime.cpp
+msgid "in less than a minute"
+msgstr "tra meno di un minuto"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} day"
+msgid_plural "in {n} days"
+msgstr[0] "tra {n} giorno"
+msgstr[1] "tra {n} giorni"
+
+#. TRANSLATORS: "in 1 day 3 hours"; {days} and {hours} as below.
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {days} {hours}"
+msgstr "tra {days} e {hours}"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "{n} day"
+msgid_plural "{n} days"
+msgstr[0] "{n} giorno"
+msgstr[1] "{n} giorni"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} hour"
+msgid_plural "{n} hours"
+msgstr[0] "{n} ora"
+msgstr[1] "{n} ore"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} minute"
+msgid_plural "in {n} minutes"
+msgstr[0] "tra {n} minuto"
+msgstr[1] "tra {n} minuti"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} hour"
+msgid_plural "in {n} hours"
+msgstr[0] "tra {n} ora"
+msgstr[1] "tra {n} ore"
+
+#. TRANSLATORS: "in 7 hours 20 minutes".
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {hours} {minutes}"
+msgstr "tra {hours} e {minutes}"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} minute"
+msgid_plural "{n} minutes"
+msgstr[0] "{n} minuto"
+msgstr[1] "{n} minuti"
+
+#: src/alarms/tones.cpp
+msgid "Chime"
+msgstr "Rintocco"
+
+#: src/alarms/tones.cpp
+msgid "Pulse"
+msgstr "Impulso"
+
+#: src/alarms/tones.cpp
+msgid "Ripple"
+msgstr "Increspatura"
+
+#: src/alarms/tones.cpp
+msgid "Glow"
+msgstr "Bagliore"
+
+#: src/alarms/tones.cpp
+msgid "Dawn"
+msgstr "Alba"
+
+#: src/clockwindow.cpp cutefish-clock.desktop
+msgid "Clock"
+msgstr "Orologio"
+
+#: src/clockwindow.cpp
+msgid "The time around the world, alarms, a stopwatch and timers."
+msgstr "L'ora nel mondo, sveglie, un cronometro e timer."
+
+#: src/clockwindow.cpp
+msgid "About Clock"
+msgstr "Informazioni su Orologio"
+
+#: src/clockwindow.cpp
+msgid "Hide Clock"
+msgstr "Nascondi Orologio"
+
+#: src/clockwindow.cpp
+msgid "Quit Clock"
+msgstr "Esci da Orologio"
+
+#: src/clockwindow.cpp
+msgid "File"
+msgstr "File"
+
+#: src/clockwindow.cpp
+msgid "New"
+msgstr "Nuovo"
+
+#: src/clockwindow.cpp
+msgid "Close Window"
+msgstr "Chiudi finestra"
+
+#: src/clockwindow.cpp src/world/worldclockpage.cpp
+msgid "Edit"
+msgstr "Modifica"
+
+#: src/clockwindow.cpp
+msgid "Undo"
+msgstr "Annulla"
+
+#: src/clockwindow.cpp
+msgid "View"
+msgstr "Vista"
+
+#: src/clockwindow.cpp
+msgid "Window"
+msgstr "Finestra"
+
+#: src/clockwindow.cpp
+msgid "Minimize"
+msgstr "Riduci a icona"
+
+#: src/clockwindow.cpp
+msgid "Zoom"
+msgstr "Zoom"
+
+#: src/page.cpp
+msgid "World Clock"
+msgstr "Ora mondiale"
+
+#: src/page.cpp
+msgid "Alarms"
+msgstr "Sveglie"
+
+#: src/page.cpp
+msgid "Stopwatch"
+msgstr "Cronometro"
+
+#: src/page.cpp
+msgid "Timers"
+msgstr "Timer"
+
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} second"
+msgid_plural "{n} seconds"
+msgstr[0] "{n} secondo"
+msgstr[1] "{n} secondi"
+
+#: src/service/alarmservice.cpp src/stopwatch/stopwatchpage.cpp
+msgid "Stop"
+msgstr "Stop"
+
+#: src/service/alarmservice.cpp src/timers/composer.cpp
+msgid "Timer"
+msgstr "Timer"
+
+#. TRANSLATORS: a timer's notification, such as "5 minutes are up".
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{duration} done"
+msgstr "Timer di {duration} terminato"
+
+#: src/stopwatch/lapslist.cpp
+#, python-brace-format
+msgid "Lap {n}"
+msgstr "Giro {n}"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Laps you take show here, the fastest and the slowest marked."
+msgstr "Qui compaiono i tuoi giri, con il più veloce e il più lento evidenziati."
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Figures"
+msgstr "Mostra cifre"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Dial"
+msgstr "Mostra quadrante"
+
+#: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
+msgid "Start"
+msgstr "Avvia"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Lap"
+msgstr "Giro"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Reset"
+msgstr "Azzera"
+
+#: src/timers/composer.cpp src/timers/timercard.cpp
+msgid "Cancel"
+msgstr "Annulla"
+
+#: src/timers/composer.cpp
+msgid "Recent"
+msgstr "Recenti"
+
+#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+msgid "Done"
+msgstr "Fine"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ended {time}"
+msgstr "Terminato alle {time}"
+
+#: src/timers/timercard.cpp
+msgid "Paused"
+msgstr "In pausa"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ends {time}"
+msgstr "Termina alle {time}"
+
+#: src/timers/timercard.cpp
+msgid "Dismiss"
+msgstr "Ignora"
+
+#: src/timers/timercard.cpp
+msgid "Resume"
+msgstr "Riprendi"
+
+#: src/timers/timercard.cpp
+msgid "Pause"
+msgstr "Pausa"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} hr"
+msgstr "{n} h"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} min"
+msgstr "{n} min"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} sec"
+msgstr "{n} s"
+
+#: src/timers/timerspage.cpp
+msgid "New Timer"
+msgstr "Nuovo timer"
+
+#: src/timers/timerspage.cpp
+msgid "Clear Recent Timers"
+msgstr "Cancella timer recenti"
+
+#: src/timers/wheelpicker.cpp
+msgid "hours"
+msgstr "ore"
+
+#: src/timers/wheelpicker.cpp
+msgid "min"
+msgstr "min"
+
+#: src/timers/wheelpicker.cpp
+msgid "sec"
+msgstr "s"
+
+#: src/world/addcitydialog.cpp
+msgid "Search city or country"
+msgstr "Cerca città o paese"
+
+#: src/world/addcitydialog.cpp
+msgid "Added"
+msgstr "Aggiunta"
+
+#: src/world/addcitydialog.cpp
+msgid "No matching cities"
+msgstr "Nessuna città trovata"
+
+#: src/world/addcitydialog.cpp src/world/emptystate.cpp
+#: src/world/worldclockpage.cpp
+msgid "Add City"
+msgstr "Aggiungi città"
+
+#: src/world/emptystate.cpp
+msgid "No Cities"
+msgstr "Nessuna città"
+
+#: src/world/emptystate.cpp
+msgid "Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr "Aggiungi le città con cui sei in contatto per vederne l'ora e il cielo a colpo d'occhio."
+
+#: src/world/worldclockpage.cpp
+msgid "Add City…"
+msgstr "Aggiungi città…"
+
+#: src/world/worldclockpage.cpp
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: src/world/worldclockpage.cpp
+msgid "Done Editing"
+msgstr "Fine modifiche"
+
+#: src/world/worldclockpage.cpp
+msgid "Edit Cities"
+msgstr "Modifica città"
+
+#: src/world/zonetime.cpp
+msgid "Today"
+msgstr "Oggi"
+
+#: src/world/zonetime.cpp
+msgid "Tomorrow"
+msgstr "Domani"
+
+#: src/world/zonetime.cpp
+msgid "Yesterday"
+msgstr "Ieri"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "In {n} day"
+msgid_plural "In {n} days"
+msgstr[0] "Tra {n} giorno"
+msgstr[1] "Tra {n} giorni"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n} day ago"
+msgid_plural "{n} days ago"
+msgstr[0] "{n} giorno fa"
+msgstr[1] "{n} giorni fa"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n}HR"
+msgid_plural "{n}HRS"
+msgstr[0] "{n} ORA"
+msgstr[1] "{n} ORE"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{hours}:{minutes}HRS"
+msgstr "{hours}:{minutes} ORE"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{day}, {offset}"
+msgstr "{day}, {offset}"
+
+#: cutefish-clock.desktop
+msgid "World clocks, alarms, a stopwatch and timers"
+msgstr "Ora nel mondo, sveglie, cronometro e timer"
+
+#: cutefish-clock.desktop
+msgid "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
+msgstr "Orologio;Ora;Sveglia;Timer;Cronometro;Mondo;Fuso orario;"
+
+#: src/service/cutefish-clock-alarms.desktop
+msgid "Clock Alarms"
+msgstr "Sveglie di Orologio"
