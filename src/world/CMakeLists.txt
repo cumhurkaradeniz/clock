@@ -8,6 +8,7 @@ pkg_check_modules(ClockWorldIcu REQUIRED IMPORTED_TARGET icu-uc icu-i18n)
 add_library(clock-world-logic STATIC
     cities.cpp
     citydatabase.cpp
+    sky.cpp
     zonetime.cpp
 )
 target_include_directories(clock-world-logic PUBLIC ${PROJECT_SOURCE_DIR}/src)
