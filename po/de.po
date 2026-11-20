@@ -288,11 +288,11 @@ msgstr "Runde"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
-msgstr "Löschen"
+msgstr "Reset"
 
 #: src/timers/composer.cpp src/timers/timercard.cpp
 msgid "Cancel"
-msgstr "Stopp"
+msgstr "Abbrechen"
 
 #: src/timers/composer.cpp
 msgid "Recent"
@@ -318,11 +318,11 @@ msgstr "Endet um {time}"
 
 #: src/timers/timercard.cpp
 msgid "Dismiss"
-msgstr "Stopp"
+msgstr "Schließen"
 
 #: src/timers/timercard.cpp
 msgid "Resume"
-msgstr "Weiter"
+msgstr "Fortsetzen"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
