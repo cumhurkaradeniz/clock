@@ -6,6 +6,7 @@ pkg_check_modules(ClockWorldIcu REQUIRED IMPORTED_TARGET icu-uc icu-i18n)
 
 # The cities, their times and the user's list: no window.
 add_library(clock-world-logic STATIC
+    cities.cpp
     citydatabase.cpp
 )
 target_include_directories(clock-world-logic PUBLIC ${PROJECT_SOURCE_DIR}/src)
