@@ -22,7 +22,7 @@ msgstr "Wecker bearbeiten"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Repeat"
-msgstr "Wiederholen"
+msgstr "Wiederholung"
 
 #: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
 #: src/service/alarmservice.cpp

@@ -22,7 +22,7 @@ msgstr "Edytuj alarm"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Repeat"
-msgstr "Powtórz"
+msgstr "Powtarzanie"
 
 #: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
 #: src/service/alarmservice.cpp

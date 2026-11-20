@@ -22,7 +22,7 @@ msgstr "Modifica sveglia"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Repeat"
-msgstr "Ripeti"
+msgstr "Ripetizione"
 
 #: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
 #: src/service/alarmservice.cpp

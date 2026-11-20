@@ -22,7 +22,7 @@ msgstr "Upravit budík"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Repeat"
-msgstr "Opakovat"
+msgstr "Opakování"
 
 #: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
 #: src/service/alarmservice.cpp

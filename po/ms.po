@@ -22,7 +22,7 @@ msgstr "Edit Penggera"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Repeat"
-msgstr "Ulang"
+msgstr "Ulangan"
 
 #: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
 #: src/service/alarmservice.cpp
