@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"POT-Creation-Date: 2026-11-21 01:09+0800\n"
 "PO-Revision-Date: 2026-11-21 01:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -190,7 +190,7 @@ msgstr "새로 만들기"
 msgid "Close Window"
 msgstr "창 닫기"
 
-#: src/clockwindow.cpp src/world/worldclockpage.cpp
+#: src/clockwindow.cpp
 msgid "Edit"
 msgstr "편집"
 
@@ -287,7 +287,7 @@ msgstr "취소"
 msgid "Recent"
 msgstr "최근 항목"
 
-#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+#: src/timers/timercard.cpp
 msgid "Done"
 msgstr "완료"
 
@@ -374,10 +374,18 @@ msgid "No Cities"
 msgstr "도시 없음"
 
 #: src/world/emptystate.cpp
-msgid ""
-"Add the cities you keep in touch with to see their time and sky at a glance."
-msgstr ""
-"자주 연락하는 도시를 추가하면 그곳의 시간과 하늘을 한눈에 볼 수 있습니다."
+msgid "Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr "자주 연락하는 도시를 추가하면 그곳의 시간과 하늘을 한눈에 볼 수 있습니다."
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Done"
+msgstr "완료"
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Edit"
+msgstr "편집"
 
 #: src/world/worldclockpage.cpp
 msgid "Add City…"
@@ -441,9 +449,7 @@ msgstr "세계 시계, 알람, 스톱워치 및 타이머"
 
 #: cutefish-clock.desktop
 msgid "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
-msgstr ""
-"시계;시간;알람;타이머;스톱워치;세계;시간"
-"대;Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
+msgstr "시계;시간;알람;타이머;스톱워치;세계;시간대;Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
 
 #: src/service/cutefish-clock-alarms.desktop
 msgid "Clock Alarms"

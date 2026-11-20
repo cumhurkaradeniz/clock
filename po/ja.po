@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"POT-Creation-Date: 2026-11-21 01:09+0800\n"
 "PO-Revision-Date: 2026-11-21 01:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -190,7 +190,7 @@ msgstr "新規"
 msgid "Close Window"
 msgstr "ウインドウを閉じる"
 
-#: src/clockwindow.cpp src/world/worldclockpage.cpp
+#: src/clockwindow.cpp
 msgid "Edit"
 msgstr "編集"
 
@@ -287,7 +287,7 @@ msgstr "キャンセル"
 msgid "Recent"
 msgstr "最近使った項目"
 
-#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+#: src/timers/timercard.cpp
 msgid "Done"
 msgstr "完了"
 
@@ -376,6 +376,16 @@ msgstr "都市なし"
 #: src/world/emptystate.cpp
 msgid "Add the cities you keep in touch with to see their time and sky at a glance."
 msgstr "よく連絡を取る都市を追加すると、現地の時刻と空の様子がひと目でわかります。"
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Done"
+msgstr "完了"
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Edit"
+msgstr "編集"
 
 #: src/world/worldclockpage.cpp
 msgid "Add City…"

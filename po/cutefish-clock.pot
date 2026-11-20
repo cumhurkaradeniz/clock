@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"POT-Creation-Date: 2026-11-21 01:09+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -197,7 +197,7 @@ msgstr ""
 msgid "Close Window"
 msgstr ""
 
-#: src/clockwindow.cpp src/world/worldclockpage.cpp
+#: src/clockwindow.cpp
 msgid "Edit"
 msgstr ""
 
@@ -295,7 +295,7 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
-#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+#: src/timers/timercard.cpp
 msgid "Done"
 msgstr ""
 
@@ -383,6 +383,16 @@ msgstr ""
 
 #: src/world/emptystate.cpp
 msgid "Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr ""
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Done"
+msgstr ""
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Edit"
 msgstr ""
 
 #: src/world/worldclockpage.cpp

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"POT-Creation-Date: 2026-11-21 01:09+0800\n"
 "PO-Revision-Date: 2026-11-21 01:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -190,7 +190,7 @@ msgstr "Baharu"
 msgid "Close Window"
 msgstr "Tutup Tetingkap"
 
-#: src/clockwindow.cpp src/world/worldclockpage.cpp
+#: src/clockwindow.cpp
 msgid "Edit"
 msgstr "Edit"
 
@@ -257,9 +257,7 @@ msgstr "Pusingan {n}"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Laps you take show here, the fastest and the slowest marked."
-msgstr ""
-"Pusingan yang anda rekod dipaparkan di sini, yang terpantas dan terlambat "
-"ditanda."
+msgstr "Pusingan yang anda rekod dipaparkan di sini, yang terpantas dan terlambat ditanda."
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Show Figures"
@@ -289,7 +287,7 @@ msgstr "Batal"
 msgid "Recent"
 msgstr "Terkini"
 
-#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+#: src/timers/timercard.cpp
 msgid "Done"
 msgstr "Selesai"
 
@@ -376,11 +374,18 @@ msgid "No Cities"
 msgstr "Tiada Bandar"
 
 #: src/world/emptystate.cpp
-msgid ""
-"Add the cities you keep in touch with to see their time and sky at a glance."
-msgstr ""
-"Tambah bandar yang anda selalu hubungi untuk melihat waktu dan langitnya "
-"sepintas lalu."
+msgid "Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr "Tambah bandar yang anda selalu hubungi untuk melihat waktu dan langitnya sepintas lalu."
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Done"
+msgstr "Selesai"
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Edit"
+msgstr "Edit"
 
 #: src/world/worldclockpage.cpp
 msgid "Add City…"
@@ -444,9 +449,7 @@ msgstr "Jam dunia, penggera, jam randik dan pemasa"
 
 #: cutefish-clock.desktop
 msgid "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
-msgstr ""
-"Jam;Waktu;Masa;Penggera;Pemasa;Jam Randik;Dunia;Zon "
-"Waktu;Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
+msgstr "Jam;Waktu;Masa;Penggera;Pemasa;Jam Randik;Dunia;Zon Waktu;Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
 
 #: src/service/cutefish-clock-alarms.desktop
 msgid "Clock Alarms"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"POT-Creation-Date: 2026-11-21 01:09+0800\n"
 "PO-Revision-Date: 2026-11-21 01:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -190,7 +190,7 @@ msgstr "Baru"
 msgid "Close Window"
 msgstr "Tutup Jendela"
 
-#: src/clockwindow.cpp src/world/worldclockpage.cpp
+#: src/clockwindow.cpp
 msgid "Edit"
 msgstr "Edit"
 
@@ -257,8 +257,7 @@ msgstr "Putaran {n}"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Laps you take show here, the fastest and the slowest marked."
-msgstr ""
-"Putaran yang Anda catat muncul di sini, yang tercepat dan terlambat ditandai."
+msgstr "Putaran yang Anda catat muncul di sini, yang tercepat dan terlambat ditandai."
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Show Figures"
@@ -288,7 +287,7 @@ msgstr "Batal"
 msgid "Recent"
 msgstr "Terbaru"
 
-#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+#: src/timers/timercard.cpp
 msgid "Done"
 msgstr "Selesai"
 
@@ -375,11 +374,18 @@ msgid "No Cities"
 msgstr "Tidak Ada Kota"
 
 #: src/world/emptystate.cpp
-msgid ""
-"Add the cities you keep in touch with to see their time and sky at a glance."
-msgstr ""
-"Tambahkan kota yang sering Anda hubungi untuk melihat waktu dan langitnya "
-"sekilas."
+msgid "Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr "Tambahkan kota yang sering Anda hubungi untuk melihat waktu dan langitnya sekilas."
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Done"
+msgstr "Selesai"
+
+#: src/world/worldclockpage.cpp
+msgctxt "button"
+msgid "Edit"
+msgstr "Edit"
 
 #: src/world/worldclockpage.cpp
 msgid "Add City…"
@@ -443,9 +449,7 @@ msgstr "Jam dunia, alarm, stopwatch, dan timer"
 
 #: cutefish-clock.desktop
 msgid "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
-msgstr ""
-"Jam;Waktu;Alarm;Timer;Pengatur Waktu;Stopwatch;Dunia;Zona "
-"Waktu;Clock;Time;World;Time Zone;"
+msgstr "Jam;Waktu;Alarm;Timer;Pengatur Waktu;Stopwatch;Dunia;Zona Waktu;Clock;Time;World;Time Zone;"
 
 #: src/service/cutefish-clock-alarms.desktop
 msgid "Clock Alarms"

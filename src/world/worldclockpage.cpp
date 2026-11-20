@@ -28,6 +28,7 @@
 using namespace cutefish;
 using namespace cutefish::ui;
 using cutefish::i18n::tr;
+using cutefish::i18n::trc;
 
 namespace clockapp {
 
@@ -116,7 +117,7 @@ std::vector<HeaderAction> WorldClockPage::headerActions()
 {
     std::vector<HeaderAction> actions;
     if (m_cities.size() > 0 || m_editing) {
-        actions.push_back({"world-edit", {}, m_editing ? tr("Done") : tr("Edit"), true, m_editing,
+        actions.push_back({"world-edit", {}, m_editing ? trc("button", "Done") : trc("button", "Edit"), true, m_editing,
                            [this] { setEditing(!m_editing); }});
     }
     actions.push_back({"world-add", "add", tr("Add City"), true, false, [this] { showAddCity(); }});
