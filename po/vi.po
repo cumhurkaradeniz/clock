@@ -319,7 +319,7 @@ msgstr "Tiếp tục"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
-msgstr "Dừng"
+msgstr "Tạm dừng"
 
 #: src/timers/timermath.cpp
 #, python-brace-format
