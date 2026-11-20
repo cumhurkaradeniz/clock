@@ -5,7 +5,9 @@
 
 #include "ui/view.h"
 
+#include <cstdint>
 #include <functional>
+#include <string>
 
 namespace cutefish::ui {
 class Window;
@@ -16,8 +18,8 @@ namespace clockapp {
 class WheelPicker;
 
 // The alarm's time on the shared drums: hours and minutes, and AM/PM where
-// the locale uses a 12-hour clock. Digits typed on a drum pick its value;
-// A and P pick the half of the day from either drum.
+// the locale uses a 12-hour clock. Digits typed on any drum set the whole
+// time ("7", "730", "0730", "1945"); A and P pick the half of the day.
 class TimePicker : public cutefish::ui::View
 {
 public:
@@ -37,11 +39,14 @@ public:
 
 protected:
     void layout() override;
-    bool keyPress(const cutefish::ui::KeyEvent& event) override;
 
 private:
+    bool typed(const cutefish::ui::KeyEvent& event);
+
     bool m_twelveHour;
     WheelPicker* m_wheels;
+    std::string m_digits;
+    uint64_t m_lastDigitNs = 0;
 };
 
 } // namespace clockapp

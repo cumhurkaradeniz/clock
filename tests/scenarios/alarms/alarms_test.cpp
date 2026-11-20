@@ -64,11 +64,9 @@ TEST(AlarmsScenario, CreateToggleEditDelete)
     ASSERT_TRUE(driver.click("alarms:emptyAdd"));
     std::unique_ptr<TestDriver> editor = dialogOver(driver);
     ASSERT_TRUE(editor);
-    // Typed on each drum; A picks the morning on a 12-hour clock.
+    // A whole time typed on a drum; A picks the morning on a 12-hour clock.
     ASSERT_TRUE(editor->focus("picker:hours"));
-    editor->typeText("7");
-    ASSERT_TRUE(editor->focus("picker:minutes"));
-    editor->typeText("30a");
+    editor->typeText("0730a");
     EXPECT_FALSE(editor->text("editor:countdown").empty());
     ASSERT_TRUE(editor->click("editor:day1"));
     ASSERT_TRUE(editor->click("editor:save"));
@@ -174,11 +172,23 @@ TEST(TimePickerScenario, TwentyFourHours)
     fixture.window.setContentView(std::move(made));
     fixture.window.show();
     fixture.driver.layout();
-    ASSERT_TRUE(fixture.driver.focus("picker:hours"));
-    fixture.driver.typeText("19");
+    // From the minutes drum too, the digits are the whole time.
     ASSERT_TRUE(fixture.driver.focus("picker:minutes"));
-    fixture.driver.typeText("45");
+    fixture.driver.typeText("1945");
     EXPECT_EQ(picker->hour(), 19);
     EXPECT_EQ(picker->minute(), 45);
 }
 
+TEST(TimePickerScenario, ThreeDigitsReadAsHourAndMinutes)
+{
+    PageFixture fixture;
+    auto made = std::make_unique<TimePicker>(&fixture.window, false);
+    TimePicker* picker = made.get();
+    fixture.window.setContentView(std::move(made));
+    fixture.window.show();
+    fixture.driver.layout();
+    ASSERT_TRUE(fixture.driver.focus("picker:hours"));
+    fixture.driver.typeText("730");
+    EXPECT_EQ(picker->hour(), 7);
+    EXPECT_EQ(picker->minute(), 30);
+}

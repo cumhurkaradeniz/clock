@@ -10,6 +10,8 @@
 #include "ui/window.h"
 
 #include <cctype>
+#include <chrono>
+#include <utility>
 #include <string>
 #include <vector>
 
@@ -20,6 +22,15 @@ namespace clockapp {
 static constexpr size_t Hours = 0;
 static constexpr size_t Minutes = 1;
 static constexpr size_t Half = 2;
+
+// Digits typed this long apart start a new time.
+static constexpr uint64_t TypingPauseNs = 1500000000;
+
+static uint64_t monotonicNs()
+{
+    using namespace std::chrono;
+    return uint64_t(duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count());
+}
 
 static std::string twoDigits(int value)
 {
@@ -55,6 +66,7 @@ TimePicker::TimePicker(Window* window, bool twelveHour)
         if (onChanged)
             onChanged();
     };
+    m_wheels->onKey = [this](const KeyEvent& event) { return typed(event); };
 }
 
 TimePicker::~TimePicker() = default;
@@ -83,16 +95,63 @@ void TimePicker::setTime(int hour, int minute, bool animate)
     m_wheels->setValue(Minutes, minute, animate);
 }
 
-bool TimePicker::keyPress(const KeyEvent& event)
+bool TimePicker::typed(const KeyEvent& event)
 {
-    // The drums take digits and arrows; the letters of the half of the day
-    // come here from whichever has focus.
-    if (!m_twelveHour || event.text.size() != 1 || (event.modifiers & ~ShiftModifier))
+    if (event.text.size() != 1 || (event.modifiers & ~ShiftModifier))
         return false;
     const char c = char(std::tolower(static_cast<unsigned char>(event.text[0])));
-    if (c != 'a' && c != 'p')
+    if (m_twelveHour && (c == 'a' || c == 'p')) {
+        m_wheels->setValue(Half, c == 'p' ? 1 : 0, true);
+        if (onChanged)
+            onChanged();
+        return true;
+    }
+    if (c < '0' || c > '9')
         return false;
-    m_wheels->setValue(Half, c == 'p' ? 1 : 0, true);
+
+    const uint64_t now = monotonicNs();
+    if (now - m_lastDigitNs > TypingPauseNs || m_digits.size() >= 4)
+        m_digits.clear();
+    m_lastDigitNs = now;
+    m_digits.push_back(c);
+
+    // The readings the digits so far can have, the likeliest first: "730"
+    // is 7:30 and "073" 07:3 on its way to 07:30.
+    const int keep = minute();
+    const auto number = [this](size_t from, size_t length) { return std::stoi(m_digits.substr(from, length)); };
+    std::vector<std::pair<int, int>> readings;
+    if (m_digits.size() == 1) {
+        readings.push_back({number(0, 1), keep});
+    } else if (m_digits.size() == 2) {
+        // "19" is 19:00; "73" is 7:3 on its way to 7:30.
+        readings.push_back({number(0, 2), keep});
+        readings.push_back({number(0, 1), number(1, 1)});
+    } else if (m_digits.size() == 3) {
+        if (m_digits[0] != '0')
+            readings.push_back({number(0, 1), number(1, 2)});
+        readings.push_back({number(0, 2), number(2, 1)});
+    } else {
+        readings.push_back({number(0, 2), number(2, 2)});
+    }
+    int hour = -1;
+    int minute = keep;
+    for (const auto& [h, m] : readings) {
+        if (h <= 23 && m <= 59) {
+            hour = h;
+            minute = m;
+            break;
+        }
+    }
+    if (hour < 0) {
+        // Not a time: this digit starts the next one.
+        m_digits = std::string(1, c);
+        hour = c - '0';
+        minute = keep;
+    }
+    // A 12-hour hour keeps its half of the day; past 12 it is the afternoon.
+    if (m_twelveHour && hour >= 1 && hour <= 12)
+        hour = hour % 12 + (m_wheels->value(Half) == 1 ? 12 : 0);
+    setTime(hour, minute, true);
     if (onChanged)
         onChanged();
     return true;
