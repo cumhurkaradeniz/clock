@@ -16,3 +16,16 @@ target_include_directories(clock-world-logic PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(clock-world-logic
     PUBLIC Cutefish::ToolkitBase
     PRIVATE PkgConfig::ClockWorldIcu)
+
+# The page.
+add_library(clock-world STATIC
+    addcitydialog.cpp
+    cardgrid.cpp
+    citycard.cpp
+    clockface.cpp
+    emptystate.cpp
+    framedriver.cpp
+    palette.cpp
+    worldclockpage.cpp
+)
+target_link_libraries(clock-world PUBLIC clock-world-logic clock-page)
