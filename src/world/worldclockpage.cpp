@@ -13,6 +13,7 @@
 #include "ui/keys.h"
 #include "ui/menu.h"
 #include "ui/painter.h"
+#include "ui/scroll_bar.h"
 #include "ui/scroll_view.h"
 #include "ui/theme.h"
 #include "ui/window.h"
@@ -316,6 +317,9 @@ void WorldClockPage::layout()
 {
     const RectF rect = localRect();
     m_scroll->setGeometry(rect);
+    // The bar starts one inset below the floating header, as it would below a
+    // flat edge; its bottom end keeps clear of the window's corner.
+    m_scroll->setVerticalBarPadding(headerHeight() + ScrollBar::inset, ScrollBar::inset);
     m_grid->setTopInset(headerHeight());
     m_backdrop->setGeometry({0, 0, rect.width, headerHeight()});
     m_empty->setGeometry({0, headerHeight(), rect.width, rect.height - headerHeight()});
