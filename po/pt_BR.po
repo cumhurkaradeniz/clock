@@ -318,7 +318,7 @@ msgstr "Termina às {time}"
 
 #: src/timers/timercard.cpp
 msgid "Dismiss"
-msgstr "Fechar"
+msgstr "Dispensar"
 
 #: src/timers/timercard.cpp
 msgid "Resume"
