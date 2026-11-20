@@ -277,11 +277,11 @@ msgstr "Mula"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Lap"
-msgstr "Lap"
+msgstr "Pusingan"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
-msgstr "Padam"
+msgstr "Sifarkan"
 
 #: src/timers/composer.cpp src/timers/timercard.cpp
 msgid "Cancel"
@@ -315,7 +315,7 @@ msgstr "Abaikan"
 
 #: src/timers/timercard.cpp
 msgid "Resume"
-msgstr "Terus"
+msgstr "Sambung"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
