@@ -285,7 +285,7 @@ msgstr "リセット"
 
 #: src/timers/composer.cpp src/timers/timercard.cpp
 msgid "Cancel"
-msgstr "キャンセル"
+msgstr "中止"
 
 #: src/timers/composer.cpp
 msgid "Recent"
