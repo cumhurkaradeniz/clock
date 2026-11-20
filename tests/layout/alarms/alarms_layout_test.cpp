@@ -137,6 +137,20 @@ TEST(AlarmsBar, KeepsClearOfTheHeaderAndTheCorner)
     ASSERT_GE(first, 0) << "no handle drawn";
     EXPECT_GE(first, int(style::headerHeight)) << "the handle runs under the header";
 
+    // Against the window's right edge, one bar inset in, not inside the page's margins.
+    {
+        const cutefish::ui::Bitmap shot = fixture.page->grab(1);
+        const int width = int(fixture.window.size().width);
+        const int y = first + 8;
+        const uint32_t page = shot.pixel(x - 6, y);
+        int right = -1;
+        for (int column = width - 12; column < width; ++column) {
+            if (shot.pixel(column, y) != page)
+                right = column;
+        }
+        ASSERT_GE(right, 0);
+        EXPECT_NEAR(right + 1, width - cutefish::ui::ScrollBar::inset, 1.0);
+    }
 
     scroll->setScrollPosition({0, 1e6});
     handleRows(first, last);
