@@ -280,7 +280,7 @@ msgstr "Afficher le cadran"
 
 #: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
 msgid "Start"
-msgstr "Démarrer"
+msgstr "Lancer"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Lap"
@@ -288,7 +288,7 @@ msgstr "Tour"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
-msgstr "Réinitialiser"
+msgstr "Effacer"
 
 #: src/timers/composer.cpp src/timers/timercard.cpp
 msgid "Cancel"
@@ -322,7 +322,7 @@ msgstr "Ignorer"
 
 #: src/timers/timercard.cpp
 msgid "Resume"
-msgstr "Reprendre"
+msgstr "Relancer"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
