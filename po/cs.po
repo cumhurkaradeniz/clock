@@ -266,7 +266,7 @@ msgstr "Časovač na {duration} skončil"
 #: src/service/alarmservice.cpp src/timers/timercard.cpp
 msgctxt "button"
 msgid "Repeat"
-msgstr "Znovu"
+msgstr "Opakovat"
 
 #: src/stopwatch/lapslist.cpp
 #, python-brace-format
@@ -295,7 +295,7 @@ msgstr "Kolo"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
-msgstr "Nulovat"
+msgstr "Vynulovat"
 
 #: src/timers/composer.cpp src/timers/timercard.cpp
 msgid "Cancel"
@@ -329,11 +329,11 @@ msgstr "Zavřít"
 
 #: src/timers/timercard.cpp
 msgid "Resume"
-msgstr "Spustit"
+msgstr "Dál"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
-msgstr "Pauza"
+msgstr "Pozastavit"
 
 #: src/timers/timermath.cpp
 #, python-brace-format
