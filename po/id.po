@@ -281,7 +281,7 @@ msgstr "Putaran"
 
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
-msgstr "Atur Ulang"
+msgstr "Hapus"
 
 #: src/timers/composer.cpp src/timers/timercard.cpp
 msgid "Cancel"
@@ -315,7 +315,7 @@ msgstr "Tutup"
 
 #: src/timers/timercard.cpp
 msgid "Resume"
-msgstr "Lanjutkan"
+msgstr "Lanjut"
 
 #: src/timers/timercard.cpp
 msgid "Pause"
