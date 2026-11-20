@@ -1,0 +1,452 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cutefish-clock\n"
+"Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
+"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"PO-Revision-Date: 2026-11-21 01:08+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+msgid "New Alarm"
+msgstr "Alarm Baru"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Edit Alarm"
+msgstr "Edit Alarm"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+#: src/timers/timercard.cpp
+msgid "Repeat"
+msgstr "Ulangi"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+#: src/service/alarmservice.cpp
+msgid "Alarm"
+msgstr "Alarm"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Label"
+msgstr "Label"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Sound"
+msgstr "Suara"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+msgid "Snooze"
+msgstr "Tunda"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Delete Alarm"
+msgstr "Hapus Alarm"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Add"
+msgstr "Tambah"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Save"
+msgstr "Simpan"
+
+#. TRANSLATORS: under the editor's time, such as "Rings in 7 hours 20 minutes".
+#: src/alarms/alarmeditor.cpp
+#, python-brace-format
+msgid "Rings {when}"
+msgstr "Berbunyi {when}"
+
+#: src/alarms/alarmspage.cpp
+msgid "No Alarms"
+msgstr "Tidak Ada Alarm"
+
+#: src/alarms/alarmspage.cpp
+msgid "Alarms ring even when Clock is closed."
+msgstr "Alarm tetap berbunyi meskipun Jam ditutup."
+
+#. TRANSLATORS: an alarm's label and when it repeats, such as "Wake Up, Weekdays".
+#: src/alarms/alarmspage.cpp
+#, python-brace-format
+msgid "{label}, {repeat}"
+msgstr "{label}, {repeat}"
+
+#: src/alarms/alarmtime.cpp
+msgid "Every Day"
+msgstr "Setiap Hari"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekdays"
+msgstr "Hari Kerja"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekends"
+msgstr "Akhir Pekan"
+
+#: src/alarms/alarmtime.cpp
+msgid "in less than a minute"
+msgstr "dalam kurang dari semenit"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} day"
+msgid_plural "in {n} days"
+msgstr[0] "dalam {n} hari"
+
+#. TRANSLATORS: "in 1 day 3 hours"; {days} and {hours} as below.
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {days} {hours}"
+msgstr "dalam {days} {hours}"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "{n} day"
+msgid_plural "{n} days"
+msgstr[0] "{n} hari"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} hour"
+msgid_plural "{n} hours"
+msgstr[0] "{n} jam"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} minute"
+msgid_plural "in {n} minutes"
+msgstr[0] "dalam {n} menit"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} hour"
+msgid_plural "in {n} hours"
+msgstr[0] "dalam {n} jam"
+
+#. TRANSLATORS: "in 7 hours 20 minutes".
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {hours} {minutes}"
+msgstr "dalam {hours} {minutes}"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} minute"
+msgid_plural "{n} minutes"
+msgstr[0] "{n} menit"
+
+#: src/alarms/tones.cpp
+msgid "Chime"
+msgstr "Lonceng"
+
+#: src/alarms/tones.cpp
+msgid "Pulse"
+msgstr "Denyut"
+
+#: src/alarms/tones.cpp
+msgid "Ripple"
+msgstr "Riak"
+
+#: src/alarms/tones.cpp
+msgid "Glow"
+msgstr "Pendar"
+
+#: src/alarms/tones.cpp
+msgid "Dawn"
+msgstr "Fajar"
+
+#: src/clockwindow.cpp cutefish-clock.desktop
+msgid "Clock"
+msgstr "Jam"
+
+#: src/clockwindow.cpp
+msgid "The time around the world, alarms, a stopwatch and timers."
+msgstr "Waktu di seluruh dunia, alarm, stopwatch, dan timer."
+
+#: src/clockwindow.cpp
+msgid "About Clock"
+msgstr "Tentang Jam"
+
+#: src/clockwindow.cpp
+msgid "Hide Clock"
+msgstr "Sembunyikan Jam"
+
+#: src/clockwindow.cpp
+msgid "Quit Clock"
+msgstr "Keluar dari Jam"
+
+#: src/clockwindow.cpp
+msgid "File"
+msgstr "File"
+
+#: src/clockwindow.cpp
+msgid "New"
+msgstr "Baru"
+
+#: src/clockwindow.cpp
+msgid "Close Window"
+msgstr "Tutup Jendela"
+
+#: src/clockwindow.cpp src/world/worldclockpage.cpp
+msgid "Edit"
+msgstr "Edit"
+
+#: src/clockwindow.cpp
+msgid "Undo"
+msgstr "Urungkan"
+
+#: src/clockwindow.cpp
+msgid "View"
+msgstr "Tampilan"
+
+#: src/clockwindow.cpp
+msgid "Window"
+msgstr "Jendela"
+
+#: src/clockwindow.cpp
+msgid "Minimize"
+msgstr "Minimalkan"
+
+#: src/clockwindow.cpp
+msgid "Zoom"
+msgstr "Zoom"
+
+#: src/page.cpp
+msgid "World Clock"
+msgstr "Jam Dunia"
+
+#: src/page.cpp
+msgid "Alarms"
+msgstr "Alarm"
+
+#: src/page.cpp
+msgid "Stopwatch"
+msgstr "Stopwatch"
+
+#: src/page.cpp
+msgid "Timers"
+msgstr "Timer"
+
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} second"
+msgid_plural "{n} seconds"
+msgstr[0] "{n} detik"
+
+#: src/service/alarmservice.cpp src/stopwatch/stopwatchpage.cpp
+msgid "Stop"
+msgstr "Hentikan"
+
+#: src/service/alarmservice.cpp src/timers/composer.cpp
+msgid "Timer"
+msgstr "Timer"
+
+#. TRANSLATORS: a timer's notification, such as "5 minutes are up".
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{duration} done"
+msgstr "{duration} selesai"
+
+#: src/stopwatch/lapslist.cpp
+#, python-brace-format
+msgid "Lap {n}"
+msgstr "Putaran {n}"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Laps you take show here, the fastest and the slowest marked."
+msgstr ""
+"Putaran yang Anda catat muncul di sini, yang tercepat dan terlambat ditandai."
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Figures"
+msgstr "Tampilkan Angka"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Dial"
+msgstr "Tampilkan Dial"
+
+#: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
+msgid "Start"
+msgstr "Mulai"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Lap"
+msgstr "Putaran"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Reset"
+msgstr "Atur Ulang"
+
+#: src/timers/composer.cpp src/timers/timercard.cpp
+msgid "Cancel"
+msgstr "Batal"
+
+#: src/timers/composer.cpp
+msgid "Recent"
+msgstr "Terbaru"
+
+#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+msgid "Done"
+msgstr "Selesai"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ended {time}"
+msgstr "Berakhir pukul {time}"
+
+#: src/timers/timercard.cpp
+msgid "Paused"
+msgstr "Dijeda"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ends {time}"
+msgstr "Berakhir pukul {time}"
+
+#: src/timers/timercard.cpp
+msgid "Dismiss"
+msgstr "Tutup"
+
+#: src/timers/timercard.cpp
+msgid "Resume"
+msgstr "Lanjutkan"
+
+#: src/timers/timercard.cpp
+msgid "Pause"
+msgstr "Jeda"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} hr"
+msgstr "{n} jam"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} min"
+msgstr "{n} mnt"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} sec"
+msgstr "{n} dtk"
+
+#: src/timers/timerspage.cpp
+msgid "New Timer"
+msgstr "Timer Baru"
+
+#: src/timers/timerspage.cpp
+msgid "Clear Recent Timers"
+msgstr "Hapus Timer Terbaru"
+
+#: src/timers/wheelpicker.cpp
+msgid "hours"
+msgstr "jam"
+
+#: src/timers/wheelpicker.cpp
+msgid "min"
+msgstr "mnt"
+
+#: src/timers/wheelpicker.cpp
+msgid "sec"
+msgstr "dtk"
+
+#: src/world/addcitydialog.cpp
+msgid "Search city or country"
+msgstr "Cari kota atau negara"
+
+#: src/world/addcitydialog.cpp
+msgid "Added"
+msgstr "Ditambahkan"
+
+#: src/world/addcitydialog.cpp
+msgid "No matching cities"
+msgstr "Tidak ada kota yang cocok"
+
+#: src/world/addcitydialog.cpp src/world/emptystate.cpp
+#: src/world/worldclockpage.cpp
+msgid "Add City"
+msgstr "Tambah Kota"
+
+#: src/world/emptystate.cpp
+msgid "No Cities"
+msgstr "Tidak Ada Kota"
+
+#: src/world/emptystate.cpp
+msgid ""
+"Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr ""
+"Tambahkan kota yang sering Anda hubungi untuk melihat waktu dan langitnya "
+"sekilas."
+
+#: src/world/worldclockpage.cpp
+msgid "Add City…"
+msgstr "Tambah Kota…"
+
+#: src/world/worldclockpage.cpp
+msgid "Remove"
+msgstr "Hapus"
+
+#: src/world/worldclockpage.cpp
+msgid "Done Editing"
+msgstr "Selesai Mengedit"
+
+#: src/world/worldclockpage.cpp
+msgid "Edit Cities"
+msgstr "Edit Kota"
+
+#: src/world/zonetime.cpp
+msgid "Today"
+msgstr "Hari Ini"
+
+#: src/world/zonetime.cpp
+msgid "Tomorrow"
+msgstr "Besok"
+
+#: src/world/zonetime.cpp
+msgid "Yesterday"
+msgstr "Kemarin"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "In {n} day"
+msgid_plural "In {n} days"
+msgstr[0] "{n} hari lagi"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n} day ago"
+msgid_plural "{n} days ago"
+msgstr[0] "{n} hari yang lalu"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n}HR"
+msgid_plural "{n}HRS"
+msgstr[0] "{n} JAM"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{hours}:{minutes}HRS"
+msgstr "{hours}:{minutes} JAM"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{day}, {offset}"
+msgstr "{day}, {offset}"
+
+#: cutefish-clock.desktop
+msgid "World clocks, alarms, a stopwatch and timers"
+msgstr "Jam dunia, alarm, stopwatch, dan timer"
+
+#: cutefish-clock.desktop
+msgid "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
+msgstr ""
+"Jam;Waktu;Alarm;Timer;Pengatur Waktu;Stopwatch;Dunia;Zona "
+"Waktu;Clock;Time;World;Time Zone;"
+
+#: src/service/cutefish-clock-alarms.desktop
+msgid "Clock Alarms"
+msgstr "Alarm Jam"
