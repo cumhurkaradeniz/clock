@@ -49,6 +49,16 @@ static Color fillOf(RoundButton::Role role)
     return style::withAlpha(tintOf(role), 0.26);
 }
 
+static double ringInsetOf(double diameter)
+{
+    return std::max(2.0, std::round(diameter * 0.04));
+}
+
+static double normalTitleSize(double diameter)
+{
+    return std::round(diameter * 0.2);
+}
+
 static Color titleOf(RoundButton::Role role)
 {
     if (role == RoundButton::Role::Neutral)
@@ -64,7 +74,8 @@ RoundButton::RoundButton(Window* window, double diameter)
     m_label = addChild<Label>();
     m_label->setTextAlignment(Label::TextAlignment::Center);
     m_label->setVerticallyCentered(true);
-    m_label->setFontSize(std::round(diameter * 0.2));
+    m_label->setFontSize(normalTitleSize(diameter));
+    m_titleSize = normalTitleSize(diameter);
     m_label->setWeight(500);
     m_label->setFadesWhenDisabled(false);
     m_state->setRestDistance(0.01);
@@ -87,6 +98,28 @@ void RoundButton::setTitle(const std::string& title)
         return;
     m_title = title;
     m_label->setText(title);
+    fitTitle();
+}
+
+double RoundButton::titleWidth() const
+{
+    return m_diameter - 4 * ringInsetOf(m_diameter);
+}
+
+double RoundButton::minimumTitleSize() const
+{
+    return std::ceil(normalTitleSize(m_diameter) * 0.8);
+}
+
+void RoundButton::fitTitle()
+{
+    double size = normalTitleSize(m_diameter);
+    m_label->setFontSize(size);
+    while (size > minimumTitleSize() && m_label->sizeHint().width > titleWidth()) {
+        size -= 1;
+        m_label->setFontSize(size);
+    }
+    m_titleSize = size;
 }
 
 void RoundButton::setPlayGlyph(bool play)
@@ -135,7 +168,7 @@ void RoundButton::paint(Painter& painter)
                                                      Color{255, 255, 255, 0}));
 
     // The ring a little inside the edge, in the page's colour.
-    const double ringInset = std::max(2.0, std::round(m_diameter * 0.04));
+    const double ringInset = ringInsetOf(m_diameter);
     Path ring;
     ring.addEllipse(disc.adjusted(ringInset, ringInset, -ringInset, -ringInset));
     painter.strokePath(ring, style::withAlpha(style::page(), 0.9), 1.5);

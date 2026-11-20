@@ -5,9 +5,11 @@
 
 #include "stopwatch/dialview.h"
 #include "stopwatch/digitdisplay.h"
+#include "stopwatch/roundbutton.h"
 #include "stopwatch/stopwatchpage.h"
 
 #include "ui/bitmap.h"
+#include "ui/label.h"
 #include "ui/scroll_bar.h"
 #include "ui/scroll_view.h"
 #include "ui/theme.h"
@@ -184,6 +186,34 @@ TEST_P(StopwatchLayout, LapsBarClearsTheWindowCorner)
     EXPECT_LE(top, ScrollBar::inset + tolerance() * 2);
     EXPECT_NEAR(height - handleEnds(fixture, laps, true).second,
                 ScrollBar::cornerPadding(Theme::current().windowRadius), tolerance() * 2);
+}
+
+TEST(RoundButtonTitle, ShrinksInWholePointsToFitAndNoFurther)
+{
+    PageFixture fixture;
+    for (const double diameter : {76.0, 56.0}) {
+        SCOPED_TRACE(diameter);
+        RoundButton button(&fixture.window, diameter);
+        auto* label = dynamic_cast<Label*>(button.children().front().get());
+        ASSERT_NE(label, nullptr);
+        button.setTitle("Lap");
+        const double normal = button.titleSize();
+        EXPECT_EQ(normal, std::round(diameter * 0.2));
+
+        button.setTitle("Resume Resume");
+        EXPECT_LT(button.titleSize(), normal);
+        EXPECT_EQ(button.titleSize(), std::round(button.titleSize()));
+        EXPECT_GE(button.titleSize(), button.minimumTitleSize());
+        EXPECT_GE(button.minimumTitleSize(), normal * 0.8);
+        if (button.titleSize() > button.minimumTitleSize())
+            EXPECT_LE(label->sizeHint().width, button.titleWidth());
+
+        button.setTitle("A title far too long for any round button");
+        EXPECT_EQ(button.titleSize(), button.minimumTitleSize());
+
+        button.setTitle("Lap");
+        EXPECT_EQ(button.titleSize(), normal);
+    }
 }
 
 INSTANTIATE_TEST_SUITE_P(Scales, StopwatchLayout, testing::Values(1.0, 1.75, 2.0));

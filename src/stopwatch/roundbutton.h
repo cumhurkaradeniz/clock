@@ -40,6 +40,14 @@ public:
     void setRole(Role role);
     Role role() const { return m_role; }
 
+    // The width the title keeps to: as far inside the ring as the ring is
+    // inside the edge.
+    double titleWidth() const;
+    // A title too long for that width is set smaller, in whole points, down
+    // to this size; past it, the title needs a shorter word.
+    double minimumTitleSize() const;
+    double titleSize() const { return m_titleSize; }
+
     cutefish::ui::SizeF sizeHint() const override { return {m_diameter, m_diameter}; }
     bool acceptsPointer() const override { return true; }
     bool acceptsFocus() const override { return true; }
@@ -60,8 +68,10 @@ protected:
 
 private:
     void updateState();
+    void fitTitle();
 
     double m_diameter;
+    double m_titleSize = 0;
     std::string m_title;
     Role m_role = Role::Neutral;
     Role m_previousRole = Role::Neutral;

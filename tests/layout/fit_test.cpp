@@ -70,7 +70,8 @@ static std::string describe(const RectF& rect)
 }
 
 // Texts wider or taller than their place or cut short, a round button's
-// title past the ring inside its edge, and controls narrower than they ask.
+// title past the ring inside its edge at its smallest size, and controls
+// narrower than they ask.
 static void checkFit(const std::string& state, const View* view, std::vector<std::string>& problems)
 {
     if (!view->isVisible())
@@ -84,10 +85,8 @@ static void checkFit(const std::string& state, const View* view, std::vector<std
         const bool oneLine = height <= natural.height + 0.5;
         double width = slot.width;
         if (const auto* button = dynamic_cast<const RoundButton*>(view->parent())) {
-            // As far inside the ring as the ring is inside the edge.
-            const double diameter = button->geometry().width;
-            const double ring = std::max(2.0, std::round(diameter * 0.04));
-            width = std::min(width, diameter - 4 * ring);
+            // The title is measured at the size it shrank to.
+            width = std::min(width, button->titleWidth());
         }
         if ((!oneLine && height > slot.height + 0.5) || (oneLine && natural.width > width + 0.5) || label->isElided())
             problems.push_back(state + ": \"" + label->text() + "\" needs " + std::to_string(int(std::ceil(natural.width)))
