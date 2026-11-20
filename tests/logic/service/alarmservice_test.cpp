@@ -282,3 +282,41 @@ TEST_F(AlarmServiceTest, SwitchedOffWhileRingingStops)
     EXPECT_FALSE(player.playing);
     EXPECT_EQ(service->ringingCount(), 0u);
 }
+
+TEST_F(AlarmServiceTest, FinishedTimerRingsOnceUntilRepeated)
+{
+    nowMs = 1790000000000;
+    RunningTimer timer;
+    timer.durationMs = 60 * 1000;
+    timer.endsAtMs = nowMs + 1000;
+    const std::string id = writer->setTimer(timer);
+    timer.id = id;
+    reader->load();
+    start();
+
+    nowMs += 1500;
+    service->check();
+    ASSERT_TRUE(runUntil(loop, [this] { return shown.size() == 1; }));
+
+    // Still in the store, finished: later checks, a wake from a long
+    // suspend and a restarted service ring nothing more.
+    nowMs += 20 * 1000;
+    service->check();
+    nowMs += 3 * 3600 * 1000;
+    service->check();
+    service.reset();
+    start();
+    nowMs += 1000;
+    service->check();
+    runUntil(loop, [] { return false; }, std::chrono::milliseconds(150));
+    EXPECT_EQ(shown.size(), 1u);
+
+    // Repeated: a new end, which rings again.
+    timer.endsAtMs = nowMs + 1000;
+    writer->setTimer(timer);
+    reader->load();
+    nowMs += 1500;
+    service->check();
+    ASSERT_TRUE(runUntil(loop, [this] { return shown.size() == 2; }));
+    EXPECT_EQ(shown.back().actions, (std::vector<std::string>{"default", "", "stop", "Stop", "repeat", "Repeat"}));
+}
