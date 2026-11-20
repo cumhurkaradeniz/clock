@@ -1,0 +1,450 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cutefish-clock\n"
+"Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
+"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"PO-Revision-Date: 2026-11-21 01:08+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+msgid "New Alarm"
+msgstr "새로운 알람"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Edit Alarm"
+msgstr "알람 편집"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+#: src/timers/timercard.cpp
+msgid "Repeat"
+msgstr "반복"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+#: src/service/alarmservice.cpp
+msgid "Alarm"
+msgstr "알람"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Label"
+msgstr "레이블"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Sound"
+msgstr "사운드"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+msgid "Snooze"
+msgstr "다시 알림"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Delete Alarm"
+msgstr "알람 삭제"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Add"
+msgstr "추가"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Save"
+msgstr "저장"
+
+#. TRANSLATORS: under the editor's time, such as "Rings in 7 hours 20 minutes".
+#: src/alarms/alarmeditor.cpp
+#, python-brace-format
+msgid "Rings {when}"
+msgstr "{when} 울림"
+
+#: src/alarms/alarmspage.cpp
+msgid "No Alarms"
+msgstr "알람 없음"
+
+#: src/alarms/alarmspage.cpp
+msgid "Alarms ring even when Clock is closed."
+msgstr "시계를 닫아도 알람이 울립니다."
+
+#. TRANSLATORS: an alarm's label and when it repeats, such as "Wake Up, Weekdays".
+#: src/alarms/alarmspage.cpp
+#, python-brace-format
+msgid "{label}, {repeat}"
+msgstr "{label}, {repeat}"
+
+#: src/alarms/alarmtime.cpp
+msgid "Every Day"
+msgstr "매일"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekdays"
+msgstr "평일"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekends"
+msgstr "주말"
+
+#: src/alarms/alarmtime.cpp
+msgid "in less than a minute"
+msgstr "1분 이내"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} day"
+msgid_plural "in {n} days"
+msgstr[0] "{n}일 후"
+
+#. TRANSLATORS: "in 1 day 3 hours"; {days} and {hours} as below.
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {days} {hours}"
+msgstr "{days} {hours} 후"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "{n} day"
+msgid_plural "{n} days"
+msgstr[0] "{n}일"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} hour"
+msgid_plural "{n} hours"
+msgstr[0] "{n}시간"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} minute"
+msgid_plural "in {n} minutes"
+msgstr[0] "{n}분 후"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} hour"
+msgid_plural "in {n} hours"
+msgstr[0] "{n}시간 후"
+
+#. TRANSLATORS: "in 7 hours 20 minutes".
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {hours} {minutes}"
+msgstr "{hours} {minutes} 후"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} minute"
+msgid_plural "{n} minutes"
+msgstr[0] "{n}분"
+
+#: src/alarms/tones.cpp
+msgid "Chime"
+msgstr "차임"
+
+#: src/alarms/tones.cpp
+msgid "Pulse"
+msgstr "펄스"
+
+#: src/alarms/tones.cpp
+msgid "Ripple"
+msgstr "물결"
+
+#: src/alarms/tones.cpp
+msgid "Glow"
+msgstr "빛"
+
+#: src/alarms/tones.cpp
+msgid "Dawn"
+msgstr "새벽"
+
+#: src/clockwindow.cpp cutefish-clock.desktop
+msgid "Clock"
+msgstr "시계"
+
+#: src/clockwindow.cpp
+msgid "The time around the world, alarms, a stopwatch and timers."
+msgstr "세계 시간, 알람, 스톱워치 및 타이머."
+
+#: src/clockwindow.cpp
+msgid "About Clock"
+msgstr "시계 정보"
+
+#: src/clockwindow.cpp
+msgid "Hide Clock"
+msgstr "시계 숨기기"
+
+#: src/clockwindow.cpp
+msgid "Quit Clock"
+msgstr "시계 종료"
+
+#: src/clockwindow.cpp
+msgid "File"
+msgstr "파일"
+
+#: src/clockwindow.cpp
+msgid "New"
+msgstr "새로 만들기"
+
+#: src/clockwindow.cpp
+msgid "Close Window"
+msgstr "창 닫기"
+
+#: src/clockwindow.cpp src/world/worldclockpage.cpp
+msgid "Edit"
+msgstr "편집"
+
+#: src/clockwindow.cpp
+msgid "Undo"
+msgstr "실행 취소"
+
+#: src/clockwindow.cpp
+msgid "View"
+msgstr "보기"
+
+#: src/clockwindow.cpp
+msgid "Window"
+msgstr "창"
+
+#: src/clockwindow.cpp
+msgid "Minimize"
+msgstr "최소화"
+
+#: src/clockwindow.cpp
+msgid "Zoom"
+msgstr "확대/축소"
+
+#: src/page.cpp
+msgid "World Clock"
+msgstr "세계 시계"
+
+#: src/page.cpp
+msgid "Alarms"
+msgstr "알람"
+
+#: src/page.cpp
+msgid "Stopwatch"
+msgstr "스톱워치"
+
+#: src/page.cpp
+msgid "Timers"
+msgstr "타이머"
+
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} second"
+msgid_plural "{n} seconds"
+msgstr[0] "{n}초"
+
+#: src/service/alarmservice.cpp src/stopwatch/stopwatchpage.cpp
+msgid "Stop"
+msgstr "중단"
+
+#: src/service/alarmservice.cpp src/timers/composer.cpp
+msgid "Timer"
+msgstr "타이머"
+
+#. TRANSLATORS: a timer's notification, such as "5 minutes are up".
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{duration} done"
+msgstr "{duration} 완료"
+
+#: src/stopwatch/lapslist.cpp
+#, python-brace-format
+msgid "Lap {n}"
+msgstr "랩 {n}"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Laps you take show here, the fastest and the slowest marked."
+msgstr "기록한 랩이 여기에 표시되며, 가장 빠른 랩과 가장 느린 랩이 강조됩니다."
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Figures"
+msgstr "숫자 보기"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Dial"
+msgstr "다이얼 보기"
+
+#: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
+msgid "Start"
+msgstr "시작"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Lap"
+msgstr "랩"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Reset"
+msgstr "재설정"
+
+#: src/timers/composer.cpp src/timers/timercard.cpp
+msgid "Cancel"
+msgstr "취소"
+
+#: src/timers/composer.cpp
+msgid "Recent"
+msgstr "최근 항목"
+
+#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+msgid "Done"
+msgstr "완료"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ended {time}"
+msgstr "{time}에 종료됨"
+
+#: src/timers/timercard.cpp
+msgid "Paused"
+msgstr "일시 정지됨"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ends {time}"
+msgstr "{time}에 종료"
+
+#: src/timers/timercard.cpp
+msgid "Dismiss"
+msgstr "닫기"
+
+#: src/timers/timercard.cpp
+msgid "Resume"
+msgstr "재개"
+
+#: src/timers/timercard.cpp
+msgid "Pause"
+msgstr "일시 정지"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} hr"
+msgstr "{n}시간"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} min"
+msgstr "{n}분"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} sec"
+msgstr "{n}초"
+
+#: src/timers/timerspage.cpp
+msgid "New Timer"
+msgstr "새로운 타이머"
+
+#: src/timers/timerspage.cpp
+msgid "Clear Recent Timers"
+msgstr "최근 타이머 지우기"
+
+#: src/timers/wheelpicker.cpp
+msgid "hours"
+msgstr "시간"
+
+#: src/timers/wheelpicker.cpp
+msgid "min"
+msgstr "분"
+
+#: src/timers/wheelpicker.cpp
+msgid "sec"
+msgstr "초"
+
+#: src/world/addcitydialog.cpp
+msgid "Search city or country"
+msgstr "도시 또는 국가 검색"
+
+#: src/world/addcitydialog.cpp
+msgid "Added"
+msgstr "추가됨"
+
+#: src/world/addcitydialog.cpp
+msgid "No matching cities"
+msgstr "일치하는 도시 없음"
+
+#: src/world/addcitydialog.cpp src/world/emptystate.cpp
+#: src/world/worldclockpage.cpp
+msgid "Add City"
+msgstr "도시 추가"
+
+#: src/world/emptystate.cpp
+msgid "No Cities"
+msgstr "도시 없음"
+
+#: src/world/emptystate.cpp
+msgid ""
+"Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr ""
+"자주 연락하는 도시를 추가하면 그곳의 시간과 하늘을 한눈에 볼 수 있습니다."
+
+#: src/world/worldclockpage.cpp
+msgid "Add City…"
+msgstr "도시 추가…"
+
+#: src/world/worldclockpage.cpp
+msgid "Remove"
+msgstr "제거"
+
+#: src/world/worldclockpage.cpp
+msgid "Done Editing"
+msgstr "편집 완료"
+
+#: src/world/worldclockpage.cpp
+msgid "Edit Cities"
+msgstr "도시 편집"
+
+#: src/world/zonetime.cpp
+msgid "Today"
+msgstr "오늘"
+
+#: src/world/zonetime.cpp
+msgid "Tomorrow"
+msgstr "내일"
+
+#: src/world/zonetime.cpp
+msgid "Yesterday"
+msgstr "어제"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "In {n} day"
+msgid_plural "In {n} days"
+msgstr[0] "{n}일 후"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n} day ago"
+msgid_plural "{n} days ago"
+msgstr[0] "{n}일 전"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n}HR"
+msgid_plural "{n}HRS"
+msgstr[0] "{n}시간"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{hours}:{minutes}HRS"
+msgstr "{hours}:{minutes}시간"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{day}, {offset}"
+msgstr "{day}, {offset}"
+
+#: cutefish-clock.desktop
+msgid "World clocks, alarms, a stopwatch and timers"
+msgstr "세계 시계, 알람, 스톱워치 및 타이머"
+
+#: cutefish-clock.desktop
+msgid "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
+msgstr ""
+"시계;시간;알람;타이머;스톱워치;세계;시간"
+"대;Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
+
+#: src/service/cutefish-clock-alarms.desktop
+msgid "Clock Alarms"
+msgstr "시계 알람"
