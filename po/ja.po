@@ -1,0 +1,446 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: cutefish-clock\n"
+"Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
+"POT-Creation-Date: 2026-11-21 01:04+0800\n"
+"PO-Revision-Date: 2026-11-21 01:08+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+msgid "New Alarm"
+msgstr "アラームを追加"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Edit Alarm"
+msgstr "アラームを編集"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+#: src/timers/timercard.cpp
+msgid "Repeat"
+msgstr "繰り返し"
+
+#: src/alarms/alarmeditor.cpp src/alarms/alarmspage.cpp
+#: src/service/alarmservice.cpp
+msgid "Alarm"
+msgstr "アラーム"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Label"
+msgstr "ラベル"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp
+msgid "Sound"
+msgstr "サウンド"
+
+#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
+msgid "Snooze"
+msgstr "スヌーズ"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Delete Alarm"
+msgstr "アラームを削除"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Add"
+msgstr "追加"
+
+#: src/alarms/alarmeditor.cpp
+msgid "Save"
+msgstr "保存"
+
+#. TRANSLATORS: under the editor's time, such as "Rings in 7 hours 20 minutes".
+#: src/alarms/alarmeditor.cpp
+#, python-brace-format
+msgid "Rings {when}"
+msgstr "{when}に鳴ります"
+
+#: src/alarms/alarmspage.cpp
+msgid "No Alarms"
+msgstr "アラームなし"
+
+#: src/alarms/alarmspage.cpp
+msgid "Alarms ring even when Clock is closed."
+msgstr "「時計」を閉じていてもアラームは鳴ります。"
+
+#. TRANSLATORS: an alarm's label and when it repeats, such as "Wake Up, Weekdays".
+#: src/alarms/alarmspage.cpp
+#, python-brace-format
+msgid "{label}, {repeat}"
+msgstr "{label}、{repeat}"
+
+#: src/alarms/alarmtime.cpp
+msgid "Every Day"
+msgstr "毎日"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekdays"
+msgstr "平日"
+
+#: src/alarms/alarmtime.cpp
+msgid "Weekends"
+msgstr "週末"
+
+#: src/alarms/alarmtime.cpp
+msgid "in less than a minute"
+msgstr "1 分以内"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} day"
+msgid_plural "in {n} days"
+msgstr[0] "{n} 日後"
+
+#. TRANSLATORS: "in 1 day 3 hours"; {days} and {hours} as below.
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {days} {hours}"
+msgstr "{days} {hours}後"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "{n} day"
+msgid_plural "{n} days"
+msgstr[0] "{n} 日"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} hour"
+msgid_plural "{n} hours"
+msgstr[0] "{n} 時間"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} minute"
+msgid_plural "in {n} minutes"
+msgstr[0] "{n} 分後"
+
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {n} hour"
+msgid_plural "in {n} hours"
+msgstr[0] "{n} 時間後"
+
+#. TRANSLATORS: "in 7 hours 20 minutes".
+#: src/alarms/alarmtime.cpp
+#, python-brace-format
+msgid "in {hours} {minutes}"
+msgstr "{hours} {minutes}後"
+
+#: src/alarms/alarmtime.cpp src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} minute"
+msgid_plural "{n} minutes"
+msgstr[0] "{n} 分"
+
+#: src/alarms/tones.cpp
+msgid "Chime"
+msgstr "チャイム"
+
+#: src/alarms/tones.cpp
+msgid "Pulse"
+msgstr "パルス"
+
+#: src/alarms/tones.cpp
+msgid "Ripple"
+msgstr "さざ波"
+
+#: src/alarms/tones.cpp
+msgid "Glow"
+msgstr "きらめき"
+
+#: src/alarms/tones.cpp
+msgid "Dawn"
+msgstr "夜明け"
+
+#: src/clockwindow.cpp cutefish-clock.desktop
+msgid "Clock"
+msgstr "時計"
+
+#: src/clockwindow.cpp
+msgid "The time around the world, alarms, a stopwatch and timers."
+msgstr "世界の時刻、アラーム、ストップウォッチ、タイマー。"
+
+#: src/clockwindow.cpp
+msgid "About Clock"
+msgstr "時計について"
+
+#: src/clockwindow.cpp
+msgid "Hide Clock"
+msgstr "時計を非表示"
+
+#: src/clockwindow.cpp
+msgid "Quit Clock"
+msgstr "時計を終了"
+
+#: src/clockwindow.cpp
+msgid "File"
+msgstr "ファイル"
+
+#: src/clockwindow.cpp
+msgid "New"
+msgstr "新規"
+
+#: src/clockwindow.cpp
+msgid "Close Window"
+msgstr "ウインドウを閉じる"
+
+#: src/clockwindow.cpp src/world/worldclockpage.cpp
+msgid "Edit"
+msgstr "編集"
+
+#: src/clockwindow.cpp
+msgid "Undo"
+msgstr "取り消す"
+
+#: src/clockwindow.cpp
+msgid "View"
+msgstr "表示"
+
+#: src/clockwindow.cpp
+msgid "Window"
+msgstr "ウインドウ"
+
+#: src/clockwindow.cpp
+msgid "Minimize"
+msgstr "最小化"
+
+#: src/clockwindow.cpp
+msgid "Zoom"
+msgstr "ズーム"
+
+#: src/page.cpp
+msgid "World Clock"
+msgstr "世界時計"
+
+#: src/page.cpp
+msgid "Alarms"
+msgstr "アラーム"
+
+#: src/page.cpp
+msgid "Stopwatch"
+msgstr "ストップウォッチ"
+
+#: src/page.cpp
+msgid "Timers"
+msgstr "タイマー"
+
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{n} second"
+msgid_plural "{n} seconds"
+msgstr[0] "{n} 秒"
+
+#: src/service/alarmservice.cpp src/stopwatch/stopwatchpage.cpp
+msgid "Stop"
+msgstr "停止"
+
+#: src/service/alarmservice.cpp src/timers/composer.cpp
+msgid "Timer"
+msgstr "タイマー"
+
+#. TRANSLATORS: a timer's notification, such as "5 minutes are up".
+#: src/service/alarmservice.cpp
+#, python-brace-format
+msgid "{duration} done"
+msgstr "{duration}が経過しました"
+
+#: src/stopwatch/lapslist.cpp
+#, python-brace-format
+msgid "Lap {n}"
+msgstr "ラップ {n}"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Laps you take show here, the fastest and the slowest marked."
+msgstr "記録したラップがここに表示され、最速と最遅のラップに印が付きます。"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Figures"
+msgstr "数字を表示"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Show Dial"
+msgstr "文字盤を表示"
+
+#: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
+msgid "Start"
+msgstr "開始"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Lap"
+msgstr "ラップ"
+
+#: src/stopwatch/stopwatchpage.cpp
+msgid "Reset"
+msgstr "リセット"
+
+#: src/timers/composer.cpp src/timers/timercard.cpp
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: src/timers/composer.cpp
+msgid "Recent"
+msgstr "最近使った項目"
+
+#: src/timers/timercard.cpp src/world/worldclockpage.cpp
+msgid "Done"
+msgstr "完了"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ended {time}"
+msgstr "{time}に終了"
+
+#: src/timers/timercard.cpp
+msgid "Paused"
+msgstr "一時停止中"
+
+#: src/timers/timercard.cpp
+#, python-brace-format
+msgid "Ends {time}"
+msgstr "{time}に終了予定"
+
+#: src/timers/timercard.cpp
+msgid "Dismiss"
+msgstr "閉じる"
+
+#: src/timers/timercard.cpp
+msgid "Resume"
+msgstr "再開"
+
+#: src/timers/timercard.cpp
+msgid "Pause"
+msgstr "一時停止"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} hr"
+msgstr "{n} 時間"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} min"
+msgstr "{n} 分"
+
+#: src/timers/timermath.cpp
+#, python-brace-format
+msgid "{n} sec"
+msgstr "{n} 秒"
+
+#: src/timers/timerspage.cpp
+msgid "New Timer"
+msgstr "新規タイマー"
+
+#: src/timers/timerspage.cpp
+msgid "Clear Recent Timers"
+msgstr "最近使ったタイマーを消去"
+
+#: src/timers/wheelpicker.cpp
+msgid "hours"
+msgstr "時間"
+
+#: src/timers/wheelpicker.cpp
+msgid "min"
+msgstr "分"
+
+#: src/timers/wheelpicker.cpp
+msgid "sec"
+msgstr "秒"
+
+#: src/world/addcitydialog.cpp
+msgid "Search city or country"
+msgstr "都市または国を検索"
+
+#: src/world/addcitydialog.cpp
+msgid "Added"
+msgstr "追加済み"
+
+#: src/world/addcitydialog.cpp
+msgid "No matching cities"
+msgstr "一致する都市はありません"
+
+#: src/world/addcitydialog.cpp src/world/emptystate.cpp
+#: src/world/worldclockpage.cpp
+msgid "Add City"
+msgstr "都市を追加"
+
+#: src/world/emptystate.cpp
+msgid "No Cities"
+msgstr "都市なし"
+
+#: src/world/emptystate.cpp
+msgid "Add the cities you keep in touch with to see their time and sky at a glance."
+msgstr "よく連絡を取る都市を追加すると、現地の時刻と空の様子がひと目でわかります。"
+
+#: src/world/worldclockpage.cpp
+msgid "Add City…"
+msgstr "都市を追加…"
+
+#: src/world/worldclockpage.cpp
+msgid "Remove"
+msgstr "削除"
+
+#: src/world/worldclockpage.cpp
+msgid "Done Editing"
+msgstr "編集を終了"
+
+#: src/world/worldclockpage.cpp
+msgid "Edit Cities"
+msgstr "都市を編集"
+
+#: src/world/zonetime.cpp
+msgid "Today"
+msgstr "今日"
+
+#: src/world/zonetime.cpp
+msgid "Tomorrow"
+msgstr "明日"
+
+#: src/world/zonetime.cpp
+msgid "Yesterday"
+msgstr "昨日"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "In {n} day"
+msgid_plural "In {n} days"
+msgstr[0] "{n} 日後"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n} day ago"
+msgid_plural "{n} days ago"
+msgstr[0] "{n} 日前"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{n}HR"
+msgid_plural "{n}HRS"
+msgstr[0] "{n}時間"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{hours}:{minutes}HRS"
+msgstr "{hours}:{minutes}時間"
+
+#: src/world/zonetime.cpp
+#, python-brace-format
+msgid "{day}, {offset}"
+msgstr "{day}、{offset}"
+
+#: cutefish-clock.desktop
+msgid "World clocks, alarms, a stopwatch and timers"
+msgstr "世界時計、アラーム、ストップウォッチ、タイマー"
+
+#: cutefish-clock.desktop
+msgid "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;"
+msgstr "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;時計;時刻;アラーム;タイマー;ストップウォッチ;世界時計;時間帯;タイムゾーン;"
+
+#: src/service/cutefish-clock-alarms.desktop
+msgid "Clock Alarms"
+msgstr "時計のアラーム"
