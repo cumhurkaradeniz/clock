@@ -44,3 +44,12 @@ foreach(layer logic scenarios layout)
         endif()
     endforeach()
 endforeach()
+
+# Translated text in its places, in every catalog the build makes.
+clock_add_test(clock-fit-tests layout
+    SOURCES layout/fit_test.cpp
+    LIBRARIES clock-ui)
+target_compile_definitions(clock-fit-tests PRIVATE CLOCK_CATALOGS="${PROJECT_BINARY_DIR}/locale")
+if(TARGET cutefish-clock-translations)
+    add_dependencies(clock-fit-tests cutefish-clock-translations)
+endif()
