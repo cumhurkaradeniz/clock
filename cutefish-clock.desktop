@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Clock
+Comment=World clocks, alarms, a stopwatch and timers
+Exec=cutefish-clock
+Icon=cutefish-clock
+Terminal=false
+Type=Application
+Categories=Utility;Clock;
+Keywords=Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;
+StartupNotify=true
