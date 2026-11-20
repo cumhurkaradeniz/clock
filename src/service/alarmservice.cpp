@@ -14,6 +14,7 @@
 namespace dbus = cutefish::base::dbus;
 using cutefish::i18n::format;
 using cutefish::i18n::tr;
+using cutefish::i18n::trc;
 using cutefish::i18n::trn;
 
 namespace clockapp {
@@ -253,7 +254,7 @@ void AlarmService::notify(Ring& ring)
         actions.push_back("stop");
         actions.push_back(tr("Stop"));
         actions.push_back("repeat");
-        actions.push_back(tr("Repeat"));
+        actions.push_back(trc("button", "Repeat"));
     }
     // Critical: the banner stays up until answered, also under Do Not Disturb.
     const dbus::VariantMap hints{

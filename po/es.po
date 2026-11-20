@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:09+0800\n"
+"POT-Creation-Date: 2026-11-21 01:18+0800\n"
 "PO-Revision-Date: 2026-11-21 01:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,8 +20,7 @@ msgstr "Nueva alarma"
 msgid "Edit Alarm"
 msgstr "Editar alarma"
 
-#: src/alarms/alarmeditor.cpp src/service/alarmservice.cpp
-#: src/timers/timercard.cpp
+#: src/alarms/alarmeditor.cpp
 msgid "Repeat"
 msgstr "Repetir"
 
@@ -256,6 +255,11 @@ msgstr "Temporizador"
 #, python-brace-format
 msgid "{duration} done"
 msgstr "Tiempo cumplido: {duration}"
+
+#: src/service/alarmservice.cpp src/timers/timercard.cpp
+msgctxt "button"
+msgid "Repeat"
+msgstr "Repetir"
 
 #: src/stopwatch/lapslist.cpp
 #, python-brace-format

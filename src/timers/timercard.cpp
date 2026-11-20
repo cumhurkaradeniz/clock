@@ -23,6 +23,7 @@
 using namespace cutefish::ui;
 using cutefish::i18n::format;
 using cutefish::i18n::tr;
+using cutefish::i18n::trc;
 
 namespace clockapp {
 
@@ -120,7 +121,7 @@ void TimerCard::update(const RunningTimer& timer, int64_t nowMs)
             m_ends->setText(format(tr("Ends {time}"), {{"time", timeOfDay(timer.endsAtMs)}}));
         m_cancel->setTitle(finished ? tr("Dismiss") : tr("Cancel"));
         if (finished) {
-            m_pause->setTitle(tr("Repeat"));
+            m_pause->setTitle(trc("button", "Repeat"));
             m_pause->setRole(RoundButton::Role::Start);
         } else if (paused) {
             m_pause->setTitle(tr("Resume"));
