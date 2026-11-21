@@ -52,7 +52,6 @@ add_library(clock-ui STATIC
     src/clockwindow.cpp
     src/headerbar.cpp
     src/pages.cpp
-    src/tabswitch.cpp
 )
 target_include_directories(clock-ui PUBLIC src)
 target_link_libraries(clock-ui PUBLIC clock-page)

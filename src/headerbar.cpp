@@ -3,7 +3,6 @@
 
 #include "headerbar.h"
 #include "style.h"
-#include "tabswitch.h"
 
 #include "base/event_loop.h"
 #include "ui/animation.h"
@@ -12,6 +11,7 @@
 #include "ui/header_button_group.h"
 #include "ui/label.h"
 #include "ui/painter.h"
+#include "ui/segmented_control.h"
 #include "ui/theme.h"
 #include "ui/window.h"
 #include "ui/window_controls.h"
@@ -30,6 +30,8 @@ static constexpr double kTextPadding = 12;
 // The switch keeps this clear of the window buttons and the page's buttons.
 static constexpr double kSwitchMargin = 12;
 static constexpr double kSwitchMinimumWidth = 280;
+// Around the widest tab's label, in every tab, as the tabs share the width.
+static constexpr double kSwitchLabelPadding = 12;
 
 // A text button on a plate of the window controls' style, as "Edit".
 class HeaderTextButton : public View
@@ -175,9 +177,11 @@ private:
 };
 
 HeaderBar::HeaderBar()
-    : m_tabs(addChild<TabSwitch>(std::vector<std::string>{}))
+    : m_tabs(addChild<SegmentedControl>())
 {
     m_tabs->setName("header:tabs");
+    m_tabs->setFontSize(style::points(9.5));
+    m_tabs->setPlateInset(0);
 }
 
 HeaderBar::~HeaderBar() = default;
@@ -246,11 +250,14 @@ void HeaderBar::layout()
     const auto* header = dynamic_cast<const WindowHeader*>(parent());
     const double start = (header ? header->leadingInset() : 0) + kSwitchMargin;
     const double stop = (m_actions && m_actions->sizeHint().width > 0 ? end : width - plateTop) - kSwitchMargin;
-    const double hint = m_tabs->sizeHint().width;
+    double widest = 0;
+    for (size_t i = 0; i < m_tabs->count(); ++i)
+        widest = std::max(widest, m_tabs->implicitItemWidth(i));
+    const double hint = (widest + 2 * kSwitchLabelPadding) * double(m_tabs->count()) + 2 * m_tabs->padding();
     const double switchWidth = std::max(std::min(kSwitchMinimumWidth, stop - start), std::min(hint, stop - start));
     const double x = std::max(start, std::min(stop - switchWidth, (width - switchWidth) / 2));
-    m_tabs->setGeometry({style::snap(x, scale), style::snap(centre - TabSwitch::kHeight / 2, scale),
-                         style::snap(switchWidth, scale), TabSwitch::kHeight});
+    m_tabs->setGeometry({style::snap(x, scale), style::snap(centre - kSwitchHeight / 2, scale),
+                         style::snap(switchWidth, scale), kSwitchHeight});
 }
 
 } // namespace clockapp

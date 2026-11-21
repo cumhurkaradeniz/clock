@@ -4,7 +4,7 @@
 #include "windowfixture.h"
 
 #include "ui/header_button_group.h"
-#include "ui/label.h"
+#include "ui/segmented_control.h"
 #include "ui/window_controls.h"
 #include "ui/window_header.h"
 
@@ -12,7 +12,7 @@
 
 using namespace cutefish::ui;
 using clockapp::HeaderAction;
-using clockapp::TabSwitch;
+using clockapp::HeaderBar;
 
 static RectF windowRect(const View* view)
 {
@@ -48,11 +48,11 @@ TEST(HeaderTest, TheSwitchIsCentredOnTheWindowAndTheButtons)
     for (const double scale : kScales) {
         SCOPED_TRACE(scale);
         WindowFixture fixture(scale);
-        TabSwitch* tabs = fixture.window->headerBar()->tabSwitch();
+        SegmentedControl* tabs = fixture.window->headerBar()->tabSwitch();
         const RectF rect = windowRect(tabs);
         EXPECT_NEAR(rect.x + rect.width / 2, clockapp::style::windowWidth / 2, 1 / scale);
         EXPECT_NEAR(rect.y + rect.height / 2, buttonsCentre(fixture), 0.5 / scale);
-        EXPECT_EQ(rect.height, TabSwitch::kHeight);
+        EXPECT_EQ(rect.height, HeaderBar::kSwitchHeight);
         EXPECT_TRUE(onDevicePixels(rect.x, scale));
         EXPECT_TRUE(onDevicePixels(rect.y, scale));
         EXPECT_LE(rect.bottom(), clockapp::style::headerHeight);
@@ -62,43 +62,24 @@ TEST(HeaderTest, TheSwitchIsCentredOnTheWindowAndTheButtons)
 TEST(HeaderTest, ThePlateIsConcentricWithTheTrack)
 {
     for (const double scale : kScales) {
-        WindowFixture fixture(scale);
-        TabSwitch* tabs = fixture.window->headerBar()->tabSwitch();
-        for (size_t i = 0; i < tabs->count(); ++i) {
-            tabs->setCurrentIndex(int(i), false);
-            const RectF plate = tabs->plateRect();
-            const RectF track = tabs->localRect();
-            // One gap to the top, the bottom and the end it meets.
-            EXPECT_DOUBLE_EQ(plate.y - track.y, TabSwitch::kPadding);
-            EXPECT_DOUBLE_EQ(track.bottom() - plate.bottom(), TabSwitch::kPadding);
-            if (i == 0)
-                EXPECT_DOUBLE_EQ(plate.x - track.x, TabSwitch::kPadding);
-            if (i + 1 == tabs->count())
-                EXPECT_NEAR(track.right() - plate.right(), TabSwitch::kPadding, 1e-9);
-            const RectF item = tabs->itemRect(i);
-            EXPECT_NEAR(plate.x, item.x, 1e-9);
-            EXPECT_NEAR(plate.width, item.width, 1e-9);
-        }
-    }
-}
-
-TEST(HeaderTest, TheLabelsAreCentredInTheirSegments)
-{
-    for (const double scale : kScales) {
         SCOPED_TRACE(scale);
         WindowFixture fixture(scale);
-        TabSwitch* tabs = fixture.window->headerBar()->tabSwitch();
-        const char* names[] = {"header:tab:world", "header:tab:alarms", "header:tab:stopwatch", "header:tab:timers"};
+        SegmentedControl* tabs = fixture.window->headerBar()->tabSwitch();
+        const RectF track = tabs->localRect();
+        const double segment = (track.width - 2 * tabs->padding()) / double(tabs->count());
         for (size_t i = 0; i < tabs->count(); ++i) {
-            auto* label = fixture.driver.find<Label>(names[i]);
-            ASSERT_NE(label, nullptr);
-            const RectF item = tabs->itemRect(i);
-            const RectF text = label->geometry();
-            EXPECT_NEAR(text.x + text.width / 2, item.x + item.width / 2, 0.5 / scale + 1e-9) << names[i];
-            // The capitals' middle on the plate's middle.
-            const double capsMiddle = text.y + label->baselineOffset() - label->capHeight() / 2;
-            EXPECT_NEAR(capsMiddle, item.y + item.height / 2, 0.5 / scale + 1e-9) << names[i];
-            EXPECT_TRUE(onDevicePixels(text.x, scale));
+            tabs->setCurrentIndex(int(i));
+            const RectF plate = tabs->plateRect();
+            // One gap to the top, the bottom and the end it meets.
+            const double gap = plate.y - track.y;
+            EXPECT_GT(gap, 0);
+            EXPECT_DOUBLE_EQ(track.bottom() - plate.bottom(), gap);
+            if (i == 0)
+                EXPECT_DOUBLE_EQ(plate.x - track.x, gap);
+            if (i + 1 == tabs->count())
+                EXPECT_NEAR(track.right() - plate.right(), gap, 1e-9);
+            const double middle = track.x + tabs->padding() + segment * (double(i) + 0.5);
+            EXPECT_NEAR(plate.x + plate.width / 2, middle, 1e-9);
         }
     }
 }

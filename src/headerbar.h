@@ -13,11 +13,10 @@
 
 namespace cutefish::ui {
 class Animation;
+class SegmentedControl;
 }
 
 namespace clockapp {
-
-class TabSwitch;
 
 // The header's tools over the window buttons' line: the tab switch centred
 // on the window, the current page's buttons at the end. It lies in a
@@ -27,11 +26,12 @@ class HeaderBar : public cutefish::ui::View
 public:
     // The gap between two plates at the end.
     static constexpr double kPlateGap = 8;
+    static constexpr double kSwitchHeight = 28;
 
     HeaderBar();
     ~HeaderBar() override;
 
-    TabSwitch* tabSwitch() const { return m_tabs; }
+    cutefish::ui::SegmentedControl* tabSwitch() const { return m_tabs; }
     // The page's buttons, faded in when the tab changed.
     void setActions(std::vector<HeaderAction> actions, bool animated);
     // Where the plates and the switch are centred, from the header's top.
@@ -45,7 +45,7 @@ protected:
 private:
     class Actions;
 
-    TabSwitch* m_tabs;
+    cutefish::ui::SegmentedControl* m_tabs;
     Actions* m_actions = nullptr;
     std::unique_ptr<cutefish::ui::Animation> m_fade;
 };

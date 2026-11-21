@@ -6,7 +6,7 @@
 #include "clockwindow.h"
 #include "scratchdir.h"
 #include "style.h"
-#include "tabswitch.h"
+#include "ui/segmented_control.h"
 #include "headerbar.h"
 
 #include "ui/test_driver.h"

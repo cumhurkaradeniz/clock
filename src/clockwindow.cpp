@@ -4,7 +4,6 @@
 #include "clockwindow.h"
 #include "headerbar.h"
 #include "style.h"
-#include "tabswitch.h"
 
 #include "base/i18n.h"
 #include "ui/about_dialog.h"
@@ -13,6 +12,7 @@
 #include "ui/keys.h"
 #include "ui/menu.h"
 #include "ui/painter.h"
+#include "ui/segmented_control.h"
 #include "ui/window.h"
 #include "ui/window_header.h"
 
@@ -112,15 +112,11 @@ ClockWindow::ClockWindow(Options options)
         m_root->addPage(std::move(page));
     }
 
-    TabSwitch* tabs = m_root->bar->tabSwitch();
+    SegmentedControl* tabs = m_root->bar->tabSwitch();
     std::vector<std::string> titles;
-    std::vector<std::string> names;
-    for (int i = 0; i < TabCount; ++i) {
+    for (int i = 0; i < TabCount; ++i)
         titles.push_back(tabTitle(Tab(i)));
-        names.push_back(std::string("header:tab:") + tabKey(Tab(i)));
-    }
     tabs->setItems(titles);
-    tabs->setSegmentNames(names);
     tabs->onCurrentChanged = [this](int index) { setTab(Tab(index)); };
 
     m_tab = tabFromKey(m_context->settings().stringValue(kTabKey));
@@ -371,12 +367,8 @@ void ClockWindow::retranslate()
     std::vector<std::string> titles;
     for (int i = 0; i < TabCount; ++i)
         titles.push_back(tabTitle(Tab(i)));
-    TabSwitch* tabs = m_root->bar->tabSwitch();
+    SegmentedControl* tabs = m_root->bar->tabSwitch();
     tabs->setItems(titles);
-    std::vector<std::string> names;
-    for (int i = 0; i < TabCount; ++i)
-        names.push_back(std::string("header:tab:") + tabKey(Tab(i)));
-    tabs->setSegmentNames(names);
     tabs->setCurrentIndex(int(m_tab), false);
     m_about.reset();
     updateActions(false);

@@ -25,7 +25,7 @@ static void expectShowing(WindowFixture& fixture, Tab tab)
     EXPECT_TRUE(page->transform().isIdentity());
     EXPECT_FALSE(page->isLayered());
     EXPECT_EQ(fixture.window->headerBar()->tabSwitch()->currentIndex(), int(tab));
-    EXPECT_EQ(fixture.window->headerBar()->tabSwitch()->platePosition(), double(int(tab)));
+    EXPECT_FALSE(fixture.window->headerBar()->tabSwitch()->isGliding());
 }
 
 TEST(WindowTest, OpensOnWorldClock)
@@ -37,7 +37,7 @@ TEST(WindowTest, OpensOnWorldClock)
 TEST(WindowTest, ClickingATabSwitchesWithATransition)
 {
     WindowFixture fixture;
-    ASSERT_TRUE(fixture.driver.click("header:tab:alarms"));
+    ASSERT_TRUE(fixture.driver.chooseSegment("header:tabs", size_t(Tab::Alarms)));
     EXPECT_EQ(fixture.window->tab(), Tab::Alarms);
     EXPECT_TRUE(fixture.window->isSwitching());
     // Both pages show while one gives way to the other.
@@ -50,7 +50,7 @@ TEST(WindowTest, ClickingATabSwitchesWithATransition)
 TEST(WindowTest, ClickingTheCurrentTabDoesNothing)
 {
     WindowFixture fixture;
-    ASSERT_TRUE(fixture.driver.click("header:tab:world"));
+    ASSERT_TRUE(fixture.driver.chooseSegment("header:tabs", size_t(Tab::WorldClock)));
     EXPECT_FALSE(fixture.window->isSwitching());
     EXPECT_FALSE(fixture.window->headerBar()->tabSwitch()->isGliding());
     expectShowing(fixture, Tab::WorldClock);
@@ -59,11 +59,11 @@ TEST(WindowTest, ClickingTheCurrentTabDoesNothing)
 TEST(WindowTest, ASwitchDuringASwitchEndsOnTheLastTab)
 {
     WindowFixture fixture;
-    ASSERT_TRUE(fixture.driver.click("header:tab:alarms"));
+    ASSERT_TRUE(fixture.driver.chooseSegment("header:tabs", size_t(Tab::Alarms)));
     fixture.driver.layout();
-    ASSERT_TRUE(fixture.driver.click("header:tab:timers"));
+    ASSERT_TRUE(fixture.driver.chooseSegment("header:tabs", size_t(Tab::Timers)));
     fixture.driver.layout();
-    ASSERT_TRUE(fixture.driver.click("header:tab:world"));
+    ASSERT_TRUE(fixture.driver.chooseSegment("header:tabs", size_t(Tab::WorldClock)));
     ASSERT_TRUE(fixture.settle());
     expectShowing(fixture, Tab::WorldClock);
 }
@@ -95,7 +95,7 @@ TEST(WindowTest, TheTabIsKeptForTheNextStart)
     ScratchDir dir;
     {
         WindowFixture fixture(1, {clockapp::style::windowWidth, clockapp::style::windowHeight}, &dir);
-        ASSERT_TRUE(fixture.driver.click("header:tab:timers"));
+        ASSERT_TRUE(fixture.driver.chooseSegment("header:tabs", size_t(Tab::Timers)));
         ASSERT_TRUE(fixture.settle());
     }
     {
