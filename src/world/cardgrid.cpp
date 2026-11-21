@@ -19,6 +19,11 @@ static constexpr double kPresenceSettleMs = 380;
 static constexpr double kLiftSettleMs = 200;
 static constexpr double kDragDistance = 5;
 
+static double cardHeight()
+{
+    return CityCard::heightForCardWidth(CardGrid::kCardWidth);
+}
+
 CardGrid::CardGrid()
 {
     setName("world:grid");
@@ -27,14 +32,7 @@ CardGrid::CardGrid()
 int CardGrid::columnsFor(double width)
 {
     const double available = width - 2 * style::pagePadding;
-    return std::max(1, int(std::floor((available + style::cardGap) / (kMinimumCardWidth + style::cardGap))));
-}
-
-double CardGrid::cardWidthFor(double width)
-{
-    const int columns = columnsFor(width);
-    const double available = width - 2 * style::pagePadding - (columns - 1) * style::cardGap;
-    return std::clamp(std::floor(available / columns), kMinimumCardWidth, kMaximumCardWidth);
+    return std::max(1, int(std::floor((available + style::cardGap) / (kCardWidth + style::cardGap))));
 }
 
 CityCard* CardGrid::card(const std::string& zoneId) const
@@ -131,16 +129,14 @@ void CardGrid::setEditProgress(double progress)
 std::vector<CardGrid::Slot> CardGrid::slots(size_t count, double width) const
 {
     const int columns = columnsFor(width);
-    const double cardWidth = cardWidthFor(width);
-    const double rowWidth = columns * cardWidth + (columns - 1) * style::cardGap;
-    // The rows centred when the cards reach their widest.
+    const double rowWidth = columns * kCardWidth + (columns - 1) * style::cardGap;
     const double left = std::max(style::pagePadding, style::centred(width, rowWidth));
-    const double height = CityCard::heightForCardWidth(cardWidth);
+    const double height = cardHeight();
     std::vector<Slot> result;
     for (size_t i = 0; i < count; ++i) {
         const size_t row = i / size_t(columns);
         const size_t column = i % size_t(columns);
-        result.push_back({left + double(column) * (cardWidth + style::cardGap),
+        result.push_back({left + double(column) * (kCardWidth + style::cardGap),
                           m_topInset + style::pagePadding + double(row) * (height + style::cardGap)});
     }
     return result;
@@ -153,7 +149,7 @@ double CardGrid::heightForWidth(double width) const
         return m_topInset;
     const int columns = columnsFor(width);
     const size_t rows = (count + size_t(columns) - 1) / size_t(columns);
-    const double height = CityCard::heightForCardWidth(cardWidthFor(width));
+    const double height = cardHeight();
     return m_topInset + 2 * style::pagePadding + double(rows) * height + double(rows - 1) * style::cardGap;
 }
 
@@ -182,10 +178,8 @@ void CardGrid::retarget(bool jump)
 void CardGrid::layout()
 {
     const double width = geometry().width;
-    const double cardWidth = cardWidthFor(width);
-    const bool resized = cardWidth != m_cardWidth;
-    m_cardWidth = cardWidth;
-    m_cardHeight = CityCard::heightForCardWidth(cardWidth);
+    const bool resized = width != m_width;
+    m_width = width;
     // A resize of the window moves the cards with it, at once.
     retarget(!m_laidOut || resized || m_jumpNext);
     m_laidOut = true;
@@ -203,7 +197,7 @@ void CardGrid::layout()
 void CardGrid::place(CityCard* card)
 {
     const double scale = window() ? window()->scale() : 1;
-    card->setGeometry({style::snap(card->x.value, scale), style::snap(card->y.value, scale), m_cardWidth, m_cardHeight});
+    card->setGeometry({style::snap(card->x.value, scale), style::snap(card->y.value, scale), kCardWidth, cardHeight()});
     const double presence = std::clamp(card->presence.value, 0.0, 1.0);
     const double lift = std::clamp(card->lift.value, 0.0, 1.0);
     const double size = (0.86 + 0.14 * presence) * (1 + 0.035 * lift);
@@ -271,8 +265,8 @@ size_t CardGrid::slotAt(PointF centre) const
     size_t best = 0;
     double bestDistance = 1e18;
     for (size_t i = 0; i < places.size(); ++i) {
-        const double dx = places[i].x + m_cardWidth / 2 - centre.x;
-        const double dy = places[i].y + m_cardHeight / 2 - centre.y;
+        const double dx = places[i].x + kCardWidth / 2 - centre.x;
+        const double dy = places[i].y + cardHeight() / 2 - centre.y;
         if (dx * dx + dy * dy < bestDistance) {
             bestDistance = dx * dx + dy * dy;
             best = i;
@@ -307,7 +301,7 @@ void CardGrid::drag(CityCard* card, PointF position)
     card->y.jump(at.y - m_grabOffset.y);
 
     // The others make room where the card would drop.
-    const size_t target = slotAt({card->x.value + m_cardWidth / 2, card->y.value + m_cardHeight / 2});
+    const size_t target = slotAt({card->x.value + kCardWidth / 2, card->y.value + cardHeight() / 2});
     auto it = std::find(m_cards.begin(), m_cards.end(), card);
     const size_t current = size_t(it - m_cards.begin());
     if (target != current && target < staying().size()) {

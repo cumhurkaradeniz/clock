@@ -274,8 +274,7 @@ TEST(WorldClockLayoutWidths, ColumnsFollowTheWidth)
 {
     EXPECT_EQ(CardGrid::columnsFor(style::windowMinimumWidth), 3);
     EXPECT_EQ(CardGrid::columnsFor(style::windowWidth), 4);
-    EXPECT_GE(CardGrid::cardWidthFor(style::windowWidth), CardGrid::kMinimumCardWidth);
-    EXPECT_LE(CardGrid::cardWidthFor(1600), CardGrid::kMaximumCardWidth);
+    EXPECT_EQ(CardGrid::columnsFor(1600), 8);
     EXPECT_EQ(CardGrid::columnsFor(300), 1);
 }
 

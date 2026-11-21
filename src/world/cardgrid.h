@@ -14,15 +14,14 @@ namespace clockapp::world {
 
 class CityCard;
 
-// The cards in rows as wide as the page allows. Every card glides to its
+// Cards of one fixed size in as many columns as the page fits. Every card glides to its
 // place on the frame clock: added ones grow in where they land, removed
 // ones shrink away as the rest close the gap, and a card dragged out of
 // place lifts and follows the pointer while the others make room.
 class CardGrid : public cutefish::ui::View
 {
 public:
-    static constexpr double kMinimumCardWidth = 164;
-    static constexpr double kMaximumCardWidth = 214;
+    static constexpr double kCardWidth = 171;
 
     CardGrid();
 
@@ -35,9 +34,8 @@ public:
     void setTopInset(double inset);
     void setEditProgress(double progress);
 
-    // How many columns fit a width, and the card width then.
+    // How many columns fit a width.
     static int columnsFor(double width);
-    static double cardWidthFor(double width);
 
     // Puts every card where it is heading at once.
     void settleNow();
@@ -80,8 +78,7 @@ private:
     std::vector<CityCard*> m_cards;
     double m_topInset = 0;
     double m_editProgress = 0;
-    double m_cardWidth = kMinimumCardWidth;
-    double m_cardHeight = 0;
+    double m_width = 0;
     bool m_laidOut = false;
     // The next layout puts the cards in place without motion.
     bool m_jumpNext = false;
