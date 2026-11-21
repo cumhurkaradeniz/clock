@@ -183,7 +183,8 @@ TEST_P(TimersLayout, CardsBarStartsBelowTheHeader)
     const RectF frame = fixture.driver.frame("timers:grid");
     EXPECT_NEAR(frame.right(), clockapp::style::windowWidth, tolerance());
     const double height = view->geometry().height;
-    EXPECT_NEAR(handleEnds(fixture, view, false).first, clockapp::style::headerHeight, tolerance() * 2);
+    EXPECT_NEAR(handleEnds(fixture, view, false).first, clockapp::style::headerHeight + ScrollBar::inset,
+                tolerance() * 2);
     EXPECT_NEAR(height - handleEnds(fixture, view, true).second,
                 ScrollBar::cornerPadding(Theme::current().windowRadius), tolerance() * 2);
 }

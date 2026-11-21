@@ -15,6 +15,7 @@
 #include "ui/header_backdrop.h"
 #include "ui/keys.h"
 #include "ui/painter.h"
+#include "ui/scroll_bar.h"
 #include "ui/scroll_view.h"
 #include "ui/theme.h"
 #include "ui/window.h"
@@ -408,7 +409,7 @@ void TimersPage::layout()
     m_grid->setTopMargin(header + 16);
     m_composer->setTopMargin(header);
     // The cards scroll under the frosted header: the bar starts below it.
-    m_gridView->setVerticalBarPadding(header, 0);
+    m_gridView->setVerticalBarPadding(header + ScrollBar::inset, 0);
 
     m_gridView->setVisible(fade < 1);
     m_backdrop->setVisible(fade < 1);
