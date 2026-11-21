@@ -2,5 +2,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 clock_add_test(clock-world-layout-tests layout
-    SOURCES worldclock_layout_test.cpp
+    SOURCES
+        palette_test.cpp
+        worldclock_layout_test.cpp
     LIBRARIES clock-world)
