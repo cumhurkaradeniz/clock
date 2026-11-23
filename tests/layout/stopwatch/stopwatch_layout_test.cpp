@@ -3,7 +3,6 @@
 
 #include "pagefixture.h"
 
-#include "stopwatch/dialview.h"
 #include "stopwatch/digitdisplay.h"
 #include "stopwatch/roundbutton.h"
 #include "stopwatch/stopwatchpage.h"
@@ -110,7 +109,7 @@ TEST_P(StopwatchLayout, FiguresAreCentred)
     EXPECT_NEAR((top + bottom) / 2, frame.height / 2, 1);
 }
 
-TEST_P(StopwatchLayout, ButtonsLineUpWithTheLaps)
+TEST_P(StopwatchLayout, ButtonsAreCentredAboveTheLaps)
 {
     StopwatchPage& page = open();
     page.startOrStop();
@@ -122,8 +121,8 @@ TEST_P(StopwatchLayout, ButtonsLineUpWithTheLaps)
     ASSERT_FALSE(rows.empty());
     const PointF rowStart = rows.front()->mapToWindow({0, 0});
     const double rowEnd = rowStart.x + rows.front()->geometry().width;
-    EXPECT_NEAR(lap.x, rowStart.x, tolerance());
-    EXPECT_NEAR(start.right(), rowEnd, tolerance());
+    EXPECT_NEAR((lap.x + start.right()) / 2, clockapp::style::windowWidth / 2, tolerance() + 1e-6);
+    EXPECT_GT(start.x, lap.right());
     EXPECT_NEAR(lap.y, start.y, tolerance());
     EXPECT_NEAR(lap.width, lap.height, tolerance());
     // The column sits on the window's middle; the list itself spans the
@@ -133,40 +132,6 @@ TEST_P(StopwatchLayout, ButtonsLineUpWithTheLaps)
     EXPECT_NEAR(laps.x, 0, tolerance());
     EXPECT_NEAR(laps.right(), clockapp::style::windowWidth, tolerance());
     EXPECT_GE(lap.y, fixture.driver.frame("stopwatch:digits").bottom() - 1);
-}
-
-TEST_P(StopwatchLayout, DialIsRoundAndCentred)
-{
-    StopwatchPage& page = open();
-    page.setFace(StopwatchPage::Face::Dial);
-    TestDriver::waitFor([&] {
-        fixture.driver.layout();
-        return !fixture.driver.find("stopwatch:digits")->isVisible();
-    });
-    DialView* dial = fixture.driver.find<DialView>("stopwatch:dial");
-    ASSERT_TRUE(dial);
-    const RectF face = dial->faceRect();
-    EXPECT_EQ(face.width, face.height);
-    EXPECT_NEAR(face.x + face.width / 2, dial->geometry().width / 2, tolerance());
-    EXPECT_NEAR(face.y + face.height / 2, dial->geometry().height / 2, tolerance());
-    // The readout's figures on the dial's vertical axis.
-    DigitDisplay* readout = dial->readout();
-    const double middle = readout->geometry().x + readout->lineStart() + readout->lineWidth() / 2;
-    EXPECT_NEAR(middle, face.x + face.width / 2, 1);
-    // The buttons stay clear of the dial.
-    EXPECT_GE(fixture.driver.frame("stopwatch:lap").y, fixture.driver.frame("stopwatch:dial").bottom() - 1);
-}
-
-TEST_P(StopwatchLayout, WideWindowShowsBoth)
-{
-    fixture.window.resize({1000, 600});
-    StopwatchPage& page = open();
-    EXPECT_TRUE(page.showsBoth());
-    EXPECT_TRUE(fixture.driver.shows("stopwatch:dial"));
-    EXPECT_TRUE(fixture.driver.shows("stopwatch:digits"));
-    const RectF dial = fixture.driver.frame("stopwatch:dial");
-    const RectF digits = fixture.driver.frame("stopwatch:digits");
-    EXPECT_LE(dial.right(), digits.x + tolerance());
 }
 
 TEST_P(StopwatchLayout, LapsBarClearsTheWindowCorner)

@@ -4,7 +4,6 @@
 # The stopwatch page, and the round buttons, figures and motion the timers
 # page shares.
 add_library(clock-stopwatch STATIC
-    dialview.cpp
     digitdisplay.cpp
     lapslist.cpp
     motion.cpp

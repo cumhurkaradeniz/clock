@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:18+0800\n"
+"POT-Creation-Date: 2026-11-23 23:17+0800\n"
 "PO-Revision-Date: 2026-11-21 01:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -44,6 +44,10 @@ msgstr "Rappel"
 #: src/alarms/alarmeditor.cpp
 msgid "Delete Alarm"
 msgstr "Supprimer l'alarme"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp src/timers/timercard.cpp
+msgid "Cancel"
+msgstr "Annuler"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Add"
@@ -266,18 +270,6 @@ msgstr "Répéter"
 msgid "Lap {n}"
 msgstr "Tour {n}"
 
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Laps you take show here, the fastest and the slowest marked."
-msgstr "Vos tours s'affichent ici, le plus rapide et le plus lent signalés."
-
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Show Figures"
-msgstr "Afficher les chiffres"
-
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Show Dial"
-msgstr "Afficher le cadran"
-
 #: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
 msgid "Start"
 msgstr "Démarrer"
@@ -289,10 +281,6 @@ msgstr "Tour"
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
 msgstr "Mise à 0"
-
-#: src/timers/composer.cpp src/timers/timercard.cpp
-msgid "Cancel"
-msgstr "Annuler"
 
 #: src/timers/composer.cpp
 msgid "Recent"
@@ -468,3 +456,12 @@ msgstr "Horloge;Heure;Alarme;Réveil;Minuteur;Chronomètre;Monde;Fuseau horaire;
 #: src/service/cutefish-clock-alarms.desktop
 msgid "Clock Alarms"
 msgstr "Alarmes d'Horloge"
+
+#~ msgid "Laps you take show here, the fastest and the slowest marked."
+#~ msgstr "Vos tours s'affichent ici, le plus rapide et le plus lent signalés."
+
+#~ msgid "Show Figures"
+#~ msgstr "Afficher les chiffres"
+
+#~ msgid "Show Dial"
+#~ msgstr "Afficher le cadran"

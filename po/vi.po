@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:18+0800\n"
+"POT-Creation-Date: 2026-11-23 23:17+0800\n"
 "PO-Revision-Date: 2026-11-21 01:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -44,6 +44,10 @@ msgstr "Báo lại"
 #: src/alarms/alarmeditor.cpp
 msgid "Delete Alarm"
 msgstr "Xóa báo thức"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp src/timers/timercard.cpp
+msgid "Cancel"
+msgstr "Hủy"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Add"
@@ -259,18 +263,6 @@ msgstr "Lặp lại"
 msgid "Lap {n}"
 msgstr "Vòng {n}"
 
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Laps you take show here, the fastest and the slowest marked."
-msgstr "Các vòng bạn bấm sẽ hiện ở đây, có đánh dấu vòng nhanh nhất và chậm nhất."
-
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Show Figures"
-msgstr "Hiện chữ số"
-
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Show Dial"
-msgstr "Hiện mặt số"
-
 #: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
 msgid "Start"
 msgstr "Bắt đầu"
@@ -282,10 +274,6 @@ msgstr "Vòng"
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
 msgstr "Đặt lại"
-
-#: src/timers/composer.cpp src/timers/timercard.cpp
-msgid "Cancel"
-msgstr "Hủy"
 
 #: src/timers/composer.cpp
 msgid "Recent"
@@ -458,3 +446,12 @@ msgstr "Đồng hồ;Thời gian;Giờ;Báo thức;Hẹn giờ;Bấm giờ;Thế
 #: src/service/cutefish-clock-alarms.desktop
 msgid "Clock Alarms"
 msgstr "Báo thức Đồng hồ"
+
+#~ msgid "Laps you take show here, the fastest and the slowest marked."
+#~ msgstr "Các vòng bạn bấm sẽ hiện ở đây, có đánh dấu vòng nhanh nhất và chậm nhất."
+
+#~ msgid "Show Figures"
+#~ msgstr "Hiện chữ số"
+
+#~ msgid "Show Dial"
+#~ msgstr "Hiện mặt số"

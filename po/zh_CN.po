@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cutefish-clock\n"
 "Report-Msgid-Bugs-To: https://github.com/cutefishos\n"
-"POT-Creation-Date: 2026-11-21 01:18+0800\n"
+"POT-Creation-Date: 2026-11-23 23:17+0800\n"
 "PO-Revision-Date: 2026-11-21 01:07+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -44,6 +44,10 @@ msgstr "稍后提醒"
 #: src/alarms/alarmeditor.cpp
 msgid "Delete Alarm"
 msgstr "删除闹钟"
+
+#: src/alarms/alarmeditor.cpp src/timers/composer.cpp src/timers/timercard.cpp
+msgid "Cancel"
+msgstr "取消"
 
 #: src/alarms/alarmeditor.cpp
 msgid "Add"
@@ -259,18 +263,6 @@ msgstr "重复"
 msgid "Lap {n}"
 msgstr "计次 {n}"
 
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Laps you take show here, the fastest and the slowest marked."
-msgstr "计次会显示在这里，并标出最快和最慢的一次。"
-
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Show Figures"
-msgstr "显示数字"
-
-#: src/stopwatch/stopwatchpage.cpp
-msgid "Show Dial"
-msgstr "显示表盘"
-
 #: src/stopwatch/stopwatchpage.cpp src/timers/composer.cpp
 msgid "Start"
 msgstr "启动"
@@ -282,10 +274,6 @@ msgstr "计次"
 #: src/stopwatch/stopwatchpage.cpp
 msgid "Reset"
 msgstr "复位"
-
-#: src/timers/composer.cpp src/timers/timercard.cpp
-msgid "Cancel"
-msgstr "取消"
 
 #: src/timers/composer.cpp
 msgid "Recent"
@@ -458,3 +446,12 @@ msgstr "Clock;Time;Alarm;Timer;Stopwatch;World;Time Zone;时钟;时间;闹钟;�
 #: src/service/cutefish-clock-alarms.desktop
 msgid "Clock Alarms"
 msgstr "时钟闹钟"
+
+#~ msgid "Laps you take show here, the fastest and the slowest marked."
+#~ msgstr "计次会显示在这里，并标出最快和最慢的一次。"
+
+#~ msgid "Show Figures"
+#~ msgstr "显示数字"
+
+#~ msgid "Show Dial"
+#~ msgstr "显示表盘"

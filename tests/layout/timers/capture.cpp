@@ -126,24 +126,9 @@ int main(int argc, char** argv)
         time.advance(990);
         page->lapOrReset();
         film(window, out + "/film-lap", 400);
-        page->setFace(StopwatchPage::Face::Dial);
-        film(window, out + "/film-face", 500, 3);
-        save(window, out + "/stopwatch-dial.png", 10);
-        std::ofstream(out + "/dial-layout.txt") << window.layoutDump();
         page->startOrStop();
         page->lapOrReset();
-        film(window, out + "/film-reset", 700, 3);
-        page->setFace(StopwatchPage::Face::Digits);
         save(window, out + "/stopwatch-reset.png", 40);
-        window.resize({1000, 640});
-        page->startOrStop();
-        time.advance(83450);
-        page->lapOrReset();
-        time.advance(4200);
-        save(window, out + "/stopwatch-both.png", 30);
-        page->startOrStop();
-        page->lapOrReset();
-        window.resize({style::windowWidth, style::windowHeight});
         std::filesystem::remove(out + "/stopwatch-tmp.png");
     }
 

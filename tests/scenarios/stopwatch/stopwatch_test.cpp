@@ -72,11 +72,9 @@ TEST_F(StopwatchScenario, StartLapStopReset)
     EXPECT_EQ(title("stopwatch:start"), "Start");
     EXPECT_EQ(title("stopwatch:lap"), "Lap");
     EXPECT_FALSE(fixture.driver.find("stopwatch:lap")->isEnabled());
-    EXPECT_TRUE(fixture.driver.shows("stopwatch:empty"));
 
     fixture.driver.click("stopwatch:start");
     EXPECT_EQ(title("stopwatch:start"), "Stop");
-    EXPECT_FALSE(fixture.driver.shows("stopwatch:empty"));
     // The frames read the clock: no press needed for the figures to move.
     step(3250);
     EXPECT_EQ(digits(), "00:03.25");
@@ -101,7 +99,6 @@ TEST_F(StopwatchScenario, StartLapStopReset)
     EXPECT_EQ(digits(), "00:00.00");
     EXPECT_EQ(title("stopwatch:lap"), "Lap");
     EXPECT_TRUE(laps().empty());
-    EXPECT_TRUE(fixture.driver.shows("stopwatch:empty"));
 }
 
 TEST_F(StopwatchScenario, KeysWorkTheButtons)
@@ -136,22 +133,4 @@ TEST_F(StopwatchScenario, RunsOnAfterThePageGoes)
     EXPECT_EQ(digits(), "00:32.00");
     EXPECT_EQ(title("stopwatch:start"), "Stop");
     EXPECT_EQ(laps(), (std::vector<std::string>{"Lap 2", "00:30.00", "Lap 1", "00:02.00"}));
-}
-
-TEST_F(StopwatchScenario, FaceSwitchesAndIsKept)
-{
-    StopwatchPage& page = open();
-    EXPECT_EQ(page.face(), StopwatchPage::Face::Digits);
-    page.setFace(StopwatchPage::Face::Dial);
-    EXPECT_EQ(fixture.context.settings().stringValue("Stopwatch/Face"), "dial");
-    TestDriver::waitFor([&] {
-        fixture.driver.layout();
-        return !fixture.driver.find("stopwatch:digits")->isVisible();
-    });
-    EXPECT_TRUE(fixture.driver.shows("stopwatch:dial"));
-    EXPECT_FALSE(fixture.driver.find("stopwatch:digits")->isVisible());
-
-    fixture.window.setContentView(nullptr);
-    StopwatchPage& again = open();
-    EXPECT_EQ(again.face(), StopwatchPage::Face::Dial);
 }
