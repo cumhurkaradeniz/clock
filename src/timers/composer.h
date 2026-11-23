@@ -13,8 +13,8 @@
 #include <vector>
 
 namespace cutefish::ui {
-class ComboBox;
 class Label;
+class RowComboBox;
 class ScrollView;
 class TextField;
 }
@@ -77,7 +77,7 @@ private:
     DurationPicker* m_picker = nullptr;
     OptionsCard* m_options = nullptr;
     cutefish::ui::TextField* m_label = nullptr;
-    cutefish::ui::ComboBox* m_sound = nullptr;
+    cutefish::ui::RowComboBox* m_sound = nullptr;
     RoundButton* m_cancel = nullptr;
     RoundButton* m_start = nullptr;
     cutefish::ui::Label* m_recentsTitle = nullptr;

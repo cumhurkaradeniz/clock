@@ -13,6 +13,7 @@
 #include "timers/wheelpicker.h"
 
 #include "ui/bitmap.h"
+#include "ui/row_combo_box.h"
 #include "ui/scroll_bar.h"
 #include "ui/scroll_view.h"
 #include "ui/theme.h"
@@ -232,9 +233,11 @@ TEST_P(TimersLayout, RecentsStandAtTheStart)
     const double left = recents.right() + TimerComposer::RecentsGap;
     const double right = clockapp::style::windowWidth - clockapp::style::pagePadding;
     EXPECT_NEAR(picker.x + picker.width / 2, (left + right) / 2, 1);
-    // The sound row's control ends one row inset from the card's edge.
+    // The sound row's chevron ends one row inset from the card's edge.
+    auto* soundBox = fixture.driver.find<cutefish::ui::RowComboBox>("timers:sound");
+    ASSERT_NE(soundBox, nullptr);
     const RectF sound = fixture.driver.frame("timers:sound");
-    EXPECT_NEAR(picker.right() - sound.right(), 14, tolerance());
+    EXPECT_NEAR(picker.right() - (sound.right() - soundBox->trailingOverhang()), 14, tolerance());
 }
 
 TEST_P(TimersLayout, StartIsCentredOnThePicker)

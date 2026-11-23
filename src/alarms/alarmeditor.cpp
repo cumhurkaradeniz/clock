@@ -16,11 +16,11 @@
 
 #include "ui/application.h"
 #include "ui/cell_layout.h"
-#include "ui/combo_box.h"
 #include "ui/dialog_window.h"
 #include "ui/keys.h"
 #include "ui/label.h"
 #include "ui/painter.h"
+#include "ui/row_combo_box.h"
 #include "ui/switch.h"
 #include "ui/text_field.h"
 #include "ui/theme.h"
@@ -78,11 +78,14 @@ protected:
                                                       ? control->layoutHints().preferredWidth
                                                       : size.width);
             const double controlHeight = std::ceil(size.height);
-            control->setGeometry({width - RowInset - controlWidth, style::centred(RowHeight, controlHeight),
+            double overhang = 0;
+            if (const auto* box = dynamic_cast<const RowComboBox*>(control))
+                overhang = box->trailingOverhang();
+            control->setGeometry({width - RowInset - controlWidth + overhang, style::centred(RowHeight, controlHeight),
                                   controlWidth, controlHeight});
             const double labelHeight = std::ceil(label->sizeHint().height);
             label->setGeometry({RowInset, style::centred(RowHeight, labelHeight),
-                                std::max(0.0, width - 3 * RowInset - controlWidth), labelHeight});
+                                std::max(0.0, width - 3 * RowInset - controlWidth + overhang), labelHeight});
         }
     }
 
@@ -328,13 +331,12 @@ AlarmEditor::AlarmEditor(Window* parent, ClockStore& store, Alarm alarm, Clock n
     std::vector<std::string> sounds;
     for (const std::string& name : clockstore::soundNames())
         sounds.push_back(tones::displayName(name));
-    auto sound = std::make_unique<ComboBox>(sounds);
+    auto sound = std::make_unique<RowComboBox>(sounds);
     m_sound = sound.get();
     m_sound->setName("editor:sound");
     const std::vector<std::string>& names = clockstore::soundNames();
     const auto found = std::find(names.begin(), names.end(), tones::resolved(m_alarm.sound));
     m_sound->setCurrentIndex(int(found - names.begin()));
-    m_sound->setLayoutHints({.preferredWidth = 140});
     m_sound->onActivated = [this](int index) {
         TonePlayer::Options options;
         options.periods = 1;

@@ -15,6 +15,7 @@
 #include "ui/combo_box.h"
 #include "ui/dialog_window.h"
 #include "ui/label.h"
+#include "ui/row_combo_box.h"
 
 #include <libintl.h>
 
@@ -107,7 +108,8 @@ static void checkFit(const std::string& state, const View* view, std::vector<std
                                    + " past " + std::to_string(int(end)));
         }
     }
-    const bool control = dynamic_cast<const DialogButton*>(view) || dynamic_cast<const ComboBox*>(view);
+    const bool control = dynamic_cast<const DialogButton*>(view) || dynamic_cast<const ComboBox*>(view)
+            || dynamic_cast<const RowComboBox*>(view);
     if (control && view->sizeHint().width > slot.width + 0.5)
         problems.push_back(state + ": control " + view->name() + " needs "
                            + std::to_string(int(std::ceil(view->sizeHint().width))) + " in " + describe(slot));

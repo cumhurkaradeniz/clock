@@ -11,9 +11,9 @@
 #include <string>
 
 namespace cutefish::ui {
-class ComboBox;
 class DialogButton;
 class Label;
+class RowComboBox;
 class Switch;
 class TextField;
 class Window;
@@ -63,7 +63,7 @@ private:
     cutefish::ui::Label* m_countdown = nullptr;
     DayChips* m_days = nullptr;
     cutefish::ui::TextField* m_label = nullptr;
-    cutefish::ui::ComboBox* m_sound = nullptr;
+    cutefish::ui::RowComboBox* m_sound = nullptr;
     cutefish::ui::Switch* m_snooze = nullptr;
 };
 
