@@ -119,6 +119,26 @@ TEST(AlarmsScenario, CreateToggleEditDelete)
     EXPECT_TRUE(settles(driver, [&] { return driver.shows("alarms:empty"); }));
 }
 
+TEST(AlarmsScenario, CancelClosesEditorWithoutSaving)
+{
+    PageFixture fixture;
+    fixture.show(makeAlarmsPage(fixture.context));
+    ClockStore& store = ClockStore::inFolder(fixture.context.paths().data);
+    TestDriver& driver = fixture.driver;
+
+    ASSERT_TRUE(driver.click("alarms:emptyAdd"));
+    std::unique_ptr<TestDriver> editor = dialogOver(driver);
+    ASSERT_TRUE(editor);
+    EXPECT_FALSE(editor->showsText("New Alarm"));
+    const cutefish::ui::RectF cancel = editor->frame("editor:cancel");
+    const cutefish::ui::RectF save = editor->frame("editor:save");
+    EXPECT_GT(cancel.width, 0);
+    EXPECT_LT(cancel.right(), save.x);
+    ASSERT_TRUE(editor->click("editor:cancel"));
+    ASSERT_TRUE(closes(driver));
+    EXPECT_TRUE(store.alarms().empty());
+}
+
 TEST(AlarmsScenario, OneTimeAlarmShowsOffOnceRung)
 {
     PageFixture fixture;

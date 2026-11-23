@@ -13,7 +13,6 @@
 namespace cutefish::ui {
 class ComboBox;
 class DialogButton;
-class DialogWindow;
 class Label;
 class Switch;
 class TextField;
@@ -58,7 +57,7 @@ private:
     ClockStore& m_store;
     Alarm m_alarm;
     Clock m_now;
-    std::unique_ptr<cutefish::ui::DialogWindow> m_dialog;
+    std::unique_ptr<cutefish::ui::Window> m_window;
     std::unique_ptr<TonePlayer> m_preview;
     TimePicker* m_picker = nullptr;
     cutefish::ui::Label* m_countdown = nullptr;

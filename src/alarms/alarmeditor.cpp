@@ -10,9 +10,11 @@
 #include "alarms/tones.h"
 #include "style.h"
 
+#include <base/event_loop.h>
 #include <base/i18n.h>
 #include <base/locale.h>
 
+#include "ui/application.h"
 #include "ui/cell_layout.h"
 #include "ui/combo_box.h"
 #include "ui/dialog_window.h"
@@ -33,6 +35,7 @@ using cutefish::i18n::tr;
 namespace clockapp {
 
 static constexpr double DialogWidth = 400;
+static constexpr double DialogPadding = 16;
 static constexpr double RowHeight = 44;
 static constexpr double RowInset = 14;
 static constexpr double ChipSize = 28;
@@ -239,15 +242,53 @@ private:
     std::vector<std::pair<DayChip*, int>> m_chips;
 };
 
+// Padding around the editor's column; dragging empty space moves the dialog.
+class EditorRoot : public View
+{
+public:
+    explicit EditorRoot(std::unique_ptr<View> content)
+        : m_content(content.get())
+    {
+        addChild(std::move(content));
+    }
+
+    double heightForWidth(double width) const override
+    {
+        return m_content->heightForWidth(width - 2 * DialogPadding) + 2 * DialogPadding;
+    }
+
+    bool acceptsPointer() const override { return true; }
+
+protected:
+    void layout() override
+    {
+        const RectF bounds = localRect();
+        m_content->setGeometry({DialogPadding, DialogPadding, std::max(0.0, bounds.width - 2 * DialogPadding),
+                                std::max(0.0, bounds.height - 2 * DialogPadding)});
+    }
+
+    void pointerPress(const PointerEvent& event) override
+    {
+        if (event.button == MouseButton::Left && window())
+            window()->startMove();
+    }
+
+private:
+    View* m_content;
+};
+
 AlarmEditor::AlarmEditor(Window* parent, ClockStore& store, Alarm alarm, Clock now)
     : m_store(store)
     , m_alarm(std::move(alarm))
     , m_now(std::move(now))
-    , m_dialog(std::make_unique<DialogWindow>(parent, isNew() ? tr("New Alarm") : tr("Edit Alarm"), DialogWidth))
+    , m_window(std::make_unique<Window>())
     , m_preview(std::make_unique<TonePlayer>())
 {
-    Window* window = m_dialog->window();
+    Window* window = m_window.get();
+    window->setTitle(isNew() ? tr("New Alarm") : tr("Edit Alarm"));
+    window->setTransientParent(parent, true);
     window->setBackgroundColor(ColorId::Background);
+    window->onCloseRequested = [this] { close(); };
 
     auto content = std::make_unique<ColumnLayout>();
     content->setName("editor:content");
@@ -317,18 +358,16 @@ AlarmEditor::AlarmEditor(Window* parent, ClockStore& store, Alarm alarm, Clock n
         remove->onClicked = [this] { this->remove(); };
     }
     actions->addChild<View>()->setLayoutHints({.fillWidth = true});
+    DialogButton* cancel = actions->addChild<DialogButton>(tr("Cancel"));
+    cancel->setName("editor:cancel");
+    cancel->onClicked = [this] { close(); };
     DialogButton* save = actions->addChild<DialogButton>(isNew() ? tr("Add") : tr("Save"), true);
     save->setName("editor:save");
     save->onClicked = [this] { this->save(); };
 
-    m_dialog->setContentView(std::move(content));
+    window->setContentView(std::make_unique<EditorRoot>(std::move(content)));
     window->addShortcut(NoModifier, key::Escape, [this] { close(); });
     window->addShortcut(ControlModifier, key::Return, [this] { this->save(); });
-    m_dialog->onClosed = [this] {
-        m_preview->stop();
-        if (onClosed)
-            onClosed();
-    };
     updateCountdown();
 }
 
@@ -339,18 +378,27 @@ AlarmEditor::~AlarmEditor()
 
 void AlarmEditor::show()
 {
-    m_dialog->show();
+    if (!m_window)
+        return;
+    m_window->resize({DialogWidth, 0});
+    m_window->setFitsContentHeight(true);
+    m_window->show();
 }
 
 void AlarmEditor::close()
 {
     m_preview->stop();
-    m_dialog->close();
+    if (!m_window)
+        return;
+    std::shared_ptr<Window> doomed(std::move(m_window));
+    Application::instance()->loop().post([doomed] {});
+    if (onClosed)
+        onClosed();
 }
 
 Window* AlarmEditor::window() const
 {
-    return m_dialog->window();
+    return m_window.get();
 }
 
 void AlarmEditor::updateCountdown()
