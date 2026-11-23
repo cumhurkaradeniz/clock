@@ -4,10 +4,13 @@
 #include "windowfixture.h"
 
 #include "ui/header_button_group.h"
+#include "ui/image.h"
 #include "ui/segmented_control.h"
+#include "ui/test_input.h"
 #include "ui/window_controls.h"
 #include "ui/window_header.h"
 
+#include <algorithm>
 #include <cmath>
 
 using namespace cutefish::ui;
@@ -121,4 +124,45 @@ TEST(HeaderTest, AtTheNarrowestTheSwitchKeepsClearOfBothEnds)
         EXPECT_LE(tabs.right(), actions.x - 12 + 1 / scale);
         EXPECT_GE(tabs.width, 280);
     }
+}
+
+static int peakBrightness(const Image& image, const RectF& area)
+{
+    int peak = 0;
+    const int x0 = std::max(0, int(std::ceil(area.x)) + 4);
+    const int y0 = std::max(0, int(std::ceil(area.y)) + 4);
+    const int x1 = std::min(image.width(), int(std::floor(area.right())) - 4);
+    const int y1 = std::min(image.height(), int(std::floor(area.bottom())) - 4);
+    for (int y = y0; y < y1; ++y) {
+        for (int x = x0; x < x1; ++x) {
+            const Color c = image.pixel(x, y);
+            peak = std::max({peak, int(c.r), int(c.g), int(c.b)});
+        }
+    }
+    return peak;
+}
+
+TEST(HeaderTest, TheTextButtonDimsWhenTheWindowIsInactive)
+{
+    WindowFixture fixture(1.0);
+    fixture.window->headerBar()->setActions(someActions(), false);
+    fixture.driver.setActive(true);
+    fixture.driver.layout();
+    const RectF edit = fixture.driver.frame("header:edit");
+    ASSERT_GT(edit.width, 0);
+
+    const Image active = TestInput::presentFrame(fixture.window->window(), 1);
+    const int activePeak = peakBrightness(active, edit);
+
+    fixture.driver.setActive(false);
+    const Image inactive = TestInput::presentFrame(fixture.window->window(), 2);
+    const int inactivePeak = peakBrightness(inactive, edit);
+
+    fixture.driver.setActive(true);
+    const Image restored = TestInput::presentFrame(fixture.window->window(), 3);
+    const int restoredPeak = peakBrightness(restored, edit);
+
+    EXPECT_GT(activePeak, 200);
+    EXPECT_LT(inactivePeak, activePeak - 50);
+    EXPECT_EQ(restoredPeak, activePeak);
 }

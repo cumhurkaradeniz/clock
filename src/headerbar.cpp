@@ -55,6 +55,8 @@ public:
 
     bool acceptsPointer() const override { return true; }
 
+    void updateActive() { updateColor(); }
+
 protected:
     void layout() override
     {
@@ -63,13 +65,7 @@ protected:
         const double baseline = style::snap(geometry().height / 2 + m_label->capHeight() / 2, scale);
         m_label->setGeometry({style::snap((geometry().width - text.width) / 2, scale),
                               baseline - m_label->baselineOffset(), text.width, text.height});
-        const Theme& theme = Theme::current();
-        Color color = m_prominent ? style::accent() : theme.text;
-        if (!isEnabled())
-            color = theme.disabledText;
-        else if (m_pressed)
-            color = style::withAlpha(color, 0.6);
-        m_label->setColor(ColorRecipe(color));
+        updateColor();
     }
 
     void paint(Painter& painter) override
@@ -77,14 +73,23 @@ protected:
         const Window* window = this->window();
         const bool dark = window ? window->headerDarkMode() : Theme::current().darkMode;
         window_controls::paintGroupPlate(painter, localRect(), dark);
-        if (m_hovered && isEnabled())
+        if (m_hovered && isEnabled()) {
+            const Color overlay = dark ? Color::rgb(0xFFFFFF) : Color::rgb(0x000000);
             painter.fillRoundedRect(localRect(), geometry().height / 2,
-                                    style::withAlpha(Theme::current().text, m_pressed ? 0.08 : 0.04));
+                                    overlay.withAlpha(m_pressed ? 0.08 : 0.04));
+        }
+    }
+
+    void enabledChanged() override
+    {
+        updateColor();
+        requestPaint();
     }
 
     void pointerEnter() override
     {
         m_hovered = true;
+        updateColor();
         requestPaint();
     }
 
@@ -92,7 +97,7 @@ protected:
     {
         m_hovered = false;
         m_pressed = false;
-        requestLayout();
+        updateColor();
         requestPaint();
     }
 
@@ -101,7 +106,7 @@ protected:
         if (event.button != MouseButton::Left || !isEnabled())
             return;
         m_pressed = true;
-        requestLayout();
+        updateColor();
         requestPaint();
     }
 
@@ -110,13 +115,27 @@ protected:
         if (!m_pressed)
             return;
         m_pressed = false;
-        requestLayout();
+        updateColor();
         requestPaint();
         if (localRect().contains(event.position) && m_triggered)
             m_triggered();
     }
 
 private:
+    void updateColor()
+    {
+        const Window* window = this->window();
+        const bool dark = window ? window->headerDarkMode() : Theme::current().darkMode;
+        const bool strong = (window && window->isActive()) || m_hovered;
+        Color color = m_prominent ? style::withAlpha(style::accent(), strong ? 1.0 : 0.5)
+                                  : window_controls::inkColor(dark, strong);
+        if (!isEnabled())
+            color = Theme::current().disabledText;
+        else if (m_pressed)
+            color = style::withAlpha(color, 0.6);
+        m_label->setColor(ColorRecipe(color));
+    }
+
     Label* m_label;
     std::function<void()> m_triggered;
     bool m_prominent;
@@ -137,6 +156,7 @@ public:
                 auto* button = addChild<HeaderTextButton>(action);
                 button->setName("header:" + action.id);
                 m_items.push_back(button);
+                m_textButtons.push_back(button);
                 continue;
             }
             if (!group) {
@@ -149,6 +169,12 @@ public:
             button->setEnabled(action.enabled);
             button->onClicked = action.triggered;
         }
+    }
+
+    void updateActive()
+    {
+        for (HeaderTextButton* button : m_textButtons)
+            button->updateActive();
     }
 
     SizeF sizeHint() const override
@@ -174,6 +200,7 @@ protected:
 
 private:
     std::vector<View*> m_items;
+    std::vector<HeaderTextButton*> m_textButtons;
 };
 
 HeaderBar::HeaderBar()
@@ -216,6 +243,12 @@ void HeaderBar::setActions(std::vector<HeaderAction> actions, bool animated)
         faded->setLayered(false);
     };
     m_fade->start();
+}
+
+void HeaderBar::updateActive()
+{
+    if (m_actions)
+        m_actions->updateActive();
 }
 
 double HeaderBar::controlCentre() const

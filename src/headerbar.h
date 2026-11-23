@@ -34,6 +34,8 @@ public:
     cutefish::ui::SegmentedControl* tabSwitch() const { return m_tabs; }
     // The page's buttons, faded in when the tab changed.
     void setActions(std::vector<HeaderAction> actions, bool animated);
+    // Updates the header buttons for the window's active state.
+    void updateActive();
     // Where the plates and the switch are centred, from the header's top.
     double controlCentre() const;
     // The end buttons' area, in local coordinates, as of the last layout.

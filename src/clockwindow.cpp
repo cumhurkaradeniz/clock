@@ -105,6 +105,7 @@ ClockWindow::ClockWindow(Options options)
     auto root = std::make_unique<ClockRoot>();
     m_root = root.get();
     m_window->setContentView(std::move(root));
+    m_window->onActiveChanged = [this] { m_root->bar->updateActive(); };
     for (int i = 0; i < TabCount; ++i) {
         std::unique_ptr<Page> page = makePage(Tab(i), *m_context);
         m_pages[size_t(i)] = page.get();
