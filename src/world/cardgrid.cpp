@@ -19,6 +19,28 @@ static constexpr double kPresenceSettleMs = 380;
 static constexpr double kLiftSettleMs = 200;
 static constexpr double kDragDistance = 5;
 
+class CardGrid::DragOverlay : public View
+{
+public:
+    explicit DragOverlay(CardGrid* owner)
+        : m_owner(owner)
+    {
+    }
+
+    ~DragOverlay() override
+    {
+        if (m_owner) {
+            m_owner->m_overlay = nullptr;
+            m_owner->m_floating = nullptr;
+        }
+    }
+
+    void detach() { m_owner = nullptr; }
+
+private:
+    CardGrid* m_owner;
+};
+
 static double cardHeight()
 {
     return CityCard::heightForCardWidth(CardGrid::kCardWidth);
@@ -27,6 +49,17 @@ static double cardHeight()
 CardGrid::CardGrid()
 {
     setName("world:grid");
+}
+
+CardGrid::~CardGrid()
+{
+    if (m_overlay) {
+        m_overlay->detach();
+        if (View* parent = m_overlay->parent())
+            parent->takeChild(m_overlay);
+        m_overlay = nullptr;
+        m_floating = nullptr;
+    }
 }
 
 int CardGrid::columnsFor(double width)
@@ -67,13 +100,6 @@ void CardGrid::setCities(const std::vector<const City*>& cities, bool animated)
                 if (onRemove)
                     onRemove(id);
             };
-            existing->onContextMenu = [this, existing](PointF position) {
-                if (onContextMenu)
-                    onContextMenu(existing->zoneId(), existing->mapToWindow(position));
-            };
-            existing->onPressed = [this, existing](PointF position) { startDrag(existing, position); };
-            existing->onMoved = [this, existing](PointF position) { drag(existing, position); };
-            existing->onReleased = [this, existing](PointF) { endDrag(existing); };
             existing->onKey = [this, existing](const KeyEvent& event) { return onKey && onKey(existing, event); };
             if (animated && m_laidOut) {
                 existing->presence.jump(0);
@@ -197,7 +223,9 @@ void CardGrid::layout()
 void CardGrid::place(CityCard* card)
 {
     const double scale = window() ? window()->scale() : 1;
-    card->setGeometry({style::snap(card->x.value, scale), style::snap(card->y.value, scale), kCardWidth, cardHeight()});
+    const PointF origin = card == m_floating ? mapToWindow({card->x.value, card->y.value})
+                                             : PointF{card->x.value, card->y.value};
+    card->setGeometry({style::snap(origin.x, scale), style::snap(origin.y, scale), kCardWidth, cardHeight()});
     const double presence = std::clamp(card->presence.value, 0.0, 1.0);
     const double lift = std::clamp(card->lift.value, 0.0, 1.0);
     const double size = (0.86 + 0.14 * presence) * (1 + 0.035 * lift);
@@ -216,6 +244,8 @@ void CardGrid::settleNow()
         card->presence.jump(card->presence.target);
         card->lift.jump(card->lift.target);
     }
+    if (!m_dragging && m_floating)
+        landFromOverlay();
     advance(0);
     for (CityCard* card : m_cards)
         place(card);
@@ -251,11 +281,34 @@ bool CardGrid::advance(double elapsedMs)
             m_pressed = nullptr;
             m_dragging = false;
         }
+        if (m_floating == card)
+            landFromOverlay();
         takeChild(card);
+    }
+    if (!m_dragging && m_floating && m_floating->x.isAtRest() && m_floating->y.isAtRest()
+        && m_floating->lift.isAtRest() && m_floating->x.value == m_floating->x.target
+        && m_floating->y.value == m_floating->y.target && m_floating->lift.value == m_floating->lift.target) {
+        landFromOverlay();
     }
     if (!gone.empty())
         requestLayout();
     return moving;
+}
+
+void CardGrid::updateFloating()
+{
+    if (m_floating)
+        place(m_floating);
+}
+
+void CardGrid::cancelDrag()
+{
+    if (m_dragging)
+        endDrag();
+    else
+        m_pressed = nullptr;
+    if (m_floating)
+        landFromOverlay();
 }
 
 size_t CardGrid::slotAt(PointF centre) const
@@ -275,30 +328,73 @@ size_t CardGrid::slotAt(PointF centre) const
     return best;
 }
 
+CityCard* CardGrid::cardAt(PointF position) const
+{
+    if (m_floating && !m_floating->removing && m_floating->isVisible()) {
+        const PointF local = position - PointF{m_floating->x.value, m_floating->y.value};
+        if (m_floating->localRect().contains(local))
+            return m_floating;
+    }
+    for (auto it = children().rbegin(); it != children().rend(); ++it) {
+        auto* card = dynamic_cast<CityCard*>(it->get());
+        if (card && !card->removing && card->isVisible() && card->geometry().contains(position))
+            return card;
+    }
+    return nullptr;
+}
+
+void CardGrid::pointerPress(const PointerEvent& event)
+{
+    CityCard* card = cardAt(event.position);
+    if (!card)
+        return;
+    if (event.button == MouseButton::Right) {
+        if (onContextMenu)
+            onContextMenu(card->zoneId(), mapToWindow(event.position));
+        return;
+    }
+    if (event.button != MouseButton::Left)
+        return;
+    card->setFocus(FocusReason::Other);
+    startDrag(card, event.position);
+}
+
+void CardGrid::pointerMove(const PointerEvent& event)
+{
+    drag(event.position);
+}
+
+void CardGrid::pointerRelease(const PointerEvent& event)
+{
+    if (event.button != MouseButton::Left)
+        return;
+    endDrag();
+}
+
 void CardGrid::startDrag(CityCard* card, PointF position)
 {
     m_pressed = card;
     m_dragging = false;
-    m_pressAt = {card->geometry().x + position.x, card->geometry().y + position.y};
-    m_grabOffset = position;
+    m_pressAt = position;
+    m_grabOffset = {position.x - card->x.value, position.y - card->y.value};
 }
 
-void CardGrid::drag(CityCard* card, PointF position)
+void CardGrid::drag(PointF position)
 {
-    if (card != m_pressed || card->removing)
+    CityCard* card = m_pressed;
+    if (!card || card->removing)
         return;
-    const PointF at{card->geometry().x + position.x, card->geometry().y + position.y};
     if (!m_dragging) {
-        if (std::hypot(at.x - m_pressAt.x, at.y - m_pressAt.y) < kDragDistance || staying().size() < 2)
+        if (std::hypot(position.x - m_pressAt.x, position.y - m_pressAt.y) < kDragDistance || staying().size() < 2)
             return;
         m_dragging = true;
         const std::vector<CityCard*> shown = staying();
         m_dragFrom = size_t(std::find(shown.begin(), shown.end(), card) - shown.begin());
-        raiseChild(card);
+        liftToOverlay(card);
         card->lift.target = 1;
     }
-    card->x.jump(at.x - m_grabOffset.x);
-    card->y.jump(at.y - m_grabOffset.y);
+    card->x.jump(position.x - m_grabOffset.x);
+    card->y.jump(position.y - m_grabOffset.y);
 
     // The others make room where the card would drop.
     const size_t target = slotAt({card->x.value + kCardWidth / 2, card->y.value + cardHeight() / 2});
@@ -314,9 +410,10 @@ void CardGrid::drag(CityCard* card, PointF position)
         onMotion();
 }
 
-void CardGrid::endDrag(CityCard* card)
+void CardGrid::endDrag()
 {
-    if (card != m_pressed)
+    CityCard* card = m_pressed;
+    if (!card)
         return;
     m_pressed = nullptr;
     if (!m_dragging)
@@ -330,6 +427,48 @@ void CardGrid::endDrag(CityCard* card)
         onMotion();
     if (to != m_dragFrom && onMoved)
         onMoved(m_dragFrom, to);
+}
+
+void CardGrid::liftToOverlay(CityCard* card)
+{
+    if (m_floating == card)
+        return;
+    if (m_floating)
+        landFromOverlay();
+    Window* win = window();
+    if (!win) {
+        raiseChild(card);
+        return;
+    }
+    if (!m_overlay)
+        m_overlay = win->overlay()->addChild<DragOverlay>(this);
+    const bool focused = card->hasFocus();
+    if (std::unique_ptr<View> taken = takeChild(card)) {
+        m_overlay->addChild(std::move(taken));
+        m_floating = card;
+        if (focused)
+            card->setFocus(FocusReason::Other);
+    }
+}
+
+void CardGrid::landFromOverlay()
+{
+    if (!m_floating)
+        return;
+    CityCard* card = m_floating;
+    m_floating = nullptr;
+    const bool focused = card->hasFocus();
+    if (m_overlay) {
+        if (std::unique_ptr<View> taken = m_overlay->takeChild(card))
+            addChild(std::move(taken));
+        m_overlay->detach();
+        if (View* parent = m_overlay->parent())
+            parent->takeChild(m_overlay);
+        m_overlay = nullptr;
+    }
+    if (focused)
+        card->setFocus(FocusReason::Other);
+    place(card);
 }
 
 } // namespace clockapp::world

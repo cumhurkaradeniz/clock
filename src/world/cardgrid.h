@@ -24,6 +24,7 @@ public:
     static constexpr double kCardWidth = 171;
 
     CardGrid();
+    ~CardGrid() override;
 
     // The cities in order; new ones come in animated when `animated`.
     void setCities(const std::vector<const City*>& cities, bool animated);
@@ -41,7 +42,12 @@ public:
     void settleNow();
     // Moves every card on; whether any still moves.
     bool advance(double elapsedMs);
+    // Keeps a card floating in the window's overlay aligned with the grid.
+    void updateFloating();
+    // Ends any drag and puts a floating card back in the grid.
+    void cancelDrag();
 
+    bool acceptsPointer() const override { return true; }
     double heightForWidth(double width) const override;
     cutefish::ui::SizeF sizeHint() const override;
 
@@ -58,8 +64,13 @@ public:
 
 protected:
     void layout() override;
+    void pointerPress(const cutefish::ui::PointerEvent& event) override;
+    void pointerMove(const cutefish::ui::PointerEvent& event) override;
+    void pointerRelease(const cutefish::ui::PointerEvent& event) override;
 
 private:
+    class DragOverlay;
+
     struct Slot
     {
         double x;
@@ -69,9 +80,12 @@ private:
     std::vector<Slot> slots(size_t count, double width) const;
     void retarget(bool jump);
     void place(CityCard* card);
+    CityCard* cardAt(cutefish::ui::PointF position) const;
     void startDrag(CityCard* card, cutefish::ui::PointF position);
-    void drag(CityCard* card, cutefish::ui::PointF position);
-    void endDrag(CityCard* card);
+    void drag(cutefish::ui::PointF position);
+    void endDrag();
+    void liftToOverlay(CityCard* card);
+    void landFromOverlay();
     size_t slotAt(cutefish::ui::PointF centre) const;
     std::vector<CityCard*> staying() const;
 
@@ -88,6 +102,8 @@ private:
     cutefish::ui::PointF m_pressAt;
     cutefish::ui::PointF m_grabOffset;
     size_t m_dragFrom = 0;
+    DragOverlay* m_overlay = nullptr;
+    CityCard* m_floating = nullptr;
 };
 
 } // namespace clockapp::world

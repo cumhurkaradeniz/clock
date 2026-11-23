@@ -79,6 +79,7 @@ private:
     std::unique_ptr<cutefish::ui::Menu> m_menu;
     cutefish::base::Subscription m_tick;
     cutefish::base::Subscription m_citiesChanged;
+    cutefish::base::Subscription m_scrolled;
     std::vector<int> m_shortcuts;
     std::string m_localZoneId;
 

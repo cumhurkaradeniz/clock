@@ -6,6 +6,7 @@
 #include "base/settings.h"
 #include "ui/keys.h"
 #include "ui/test_driver.h"
+#include "ui/test_input.h"
 #include "ui/window.h"
 #include "world/addcitydialog.h"
 #include "world/cardgrid.h"
@@ -195,4 +196,36 @@ TEST(WorldClockScenario, TheDayLabelTurnsOverAtMidnight)
     const std::string before = card->captionText();
     fixture.advance(std::chrono::seconds(1));
     EXPECT_NE(card->captionText(), before);
+}
+
+TEST(WorldClockScenario, DraggingACardLiftsItIntoTheWindowOverlayAndReorders)
+{
+    PageFixture fixture;
+    fixture.context.settings().setValue("WorldClock/Cities", List{"Asia/Tokyo", "Europe/London"});
+    WorldClockPage* page = showPage(fixture);
+    CityCard* tokyo = page->grid()->card("Asia/Tokyo");
+    CityCard* london = page->grid()->card("Europe/London");
+    ASSERT_NE(tokyo, nullptr);
+    ASSERT_NE(london, nullptr);
+
+    const RectF fromRect = fixture.driver.frame("world:card:Asia/Tokyo");
+    const RectF toRect = fixture.driver.frame("world:card:Europe/London");
+    const PointF from{fromRect.x + fromRect.width / 2, fromRect.y + fromRect.height / 2};
+    const PointF to{toRect.x + toRect.width / 2, toRect.y + toRect.height / 2};
+
+    TestInput::press(fixture.window, from);
+    TestInput::movePointer(fixture.window, {to.x, 10});
+    fixture.driver.layout();
+
+    // While dragged, the card lives under the window's overlay so it paints above the header.
+    EXPECT_EQ(tokyo->parent()->parent(), fixture.window.overlay());
+    EXPECT_LT(tokyo->geometry().y, page->headerHeight());
+
+    TestInput::movePointer(fixture.window, to);
+    TestInput::release(fixture.window, to);
+    EXPECT_EQ(page->cities().zoneIds(), (List{"Europe/London", "Asia/Tokyo"}));
+
+    ASSERT_TRUE(settle(fixture, page));
+    EXPECT_EQ(tokyo->parent(), page->grid());
+    EXPECT_TRUE(fixture.window.overlay()->children().empty());
 }

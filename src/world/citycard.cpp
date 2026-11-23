@@ -357,34 +357,6 @@ void CityCard::paint(Painter& painter)
     }
 }
 
-void CityCard::pointerPress(const PointerEvent& event)
-{
-    if (event.button == MouseButton::Right) {
-        if (onContextMenu)
-            onContextMenu(event.position);
-        return;
-    }
-    if (event.button != MouseButton::Left)
-        return;
-    setFocus(FocusReason::Other);
-    if (onPressed)
-        onPressed(event.position);
-}
-
-void CityCard::pointerMove(const PointerEvent& event)
-{
-    if (onMoved)
-        onMoved(event.position);
-}
-
-void CityCard::pointerRelease(const PointerEvent& event)
-{
-    if (event.button != MouseButton::Left)
-        return;
-    if (onReleased)
-        onReleased(event.position);
-}
-
 bool CityCard::keyPress(const KeyEvent& event)
 {
     if ((event.key == key::Delete || event.key == key::BackSpace) && onRemove) {

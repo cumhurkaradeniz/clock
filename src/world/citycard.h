@@ -61,12 +61,6 @@ public:
     bool removing = false;
 
     std::function<void()> onRemove;
-    std::function<void(cutefish::ui::PointF position)> onContextMenu;
-    // A press, a move and the release, in the card's coordinates, for the
-    // grid's drag to reorder.
-    std::function<void(cutefish::ui::PointF position)> onPressed;
-    std::function<void(cutefish::ui::PointF position)> onMoved;
-    std::function<void(cutefish::ui::PointF position)> onReleased;
     std::function<bool(const cutefish::ui::KeyEvent& event)> onKey;
 
     std::string captionText() const;
@@ -76,15 +70,11 @@ public:
     RemoveButton* removeButton() const { return m_remove; }
 
     cutefish::ui::RectF visualRect() const override;
-    bool acceptsPointer() const override { return true; }
     bool acceptsFocus() const override { return true; }
 
 protected:
     void layout() override;
     void paint(cutefish::ui::Painter& painter) override;
-    void pointerPress(const cutefish::ui::PointerEvent& event) override;
-    void pointerMove(const cutefish::ui::PointerEvent& event) override;
-    void pointerRelease(const cutefish::ui::PointerEvent& event) override;
     bool keyPress(const cutefish::ui::KeyEvent& event) override;
     void focusIn(cutefish::ui::FocusReason reason) override;
     void focusOut() override;

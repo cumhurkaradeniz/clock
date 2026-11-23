@@ -59,6 +59,7 @@ WorldClockPage::WorldClockPage(PageContext& context, const CityDatabase& databas
     m_scroll->setScrollDirections(false, true);
     m_scroll->setBottomCornerRadius(Theme::current().windowRadius);
     m_grid = m_scroll->setContent<CardGrid>();
+    m_scrolled = m_scroll->scrolled.connect([this] { m_grid->updateFloating(); });
     m_backdrop = addChild<HeaderBackdrop>(m_scroll);
     m_backdrop->setSeparatorVisible(false);
     m_empty = addChild<EmptyState>();
@@ -144,6 +145,7 @@ void WorldClockPage::activated()
 void WorldClockPage::deactivated()
 {
     m_current = false;
+    m_grid->cancelDrag();
     setEditing(false);
 }
 
