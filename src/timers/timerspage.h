@@ -23,6 +23,7 @@ namespace clockapp {
 
 class ClockStore;
 class PageContext;
+class RecentsPanel;
 class TimerCard;
 class TimerComposer;
 
@@ -66,6 +67,7 @@ private:
 
     void start(const timermath::Recent& recent);
     void sync();
+    void updateRecents();
     void updateTicking();
     int64_t nowMs() const;
 
@@ -82,9 +84,12 @@ private:
     cutefish::ui::ScrollView* m_gridView = nullptr;
     Grid* m_grid = nullptr;
     TimerComposer* m_composer = nullptr;
+    RecentsPanel* m_recentsPanel = nullptr;
     cutefish::ui::HeaderBackdrop* m_backdrop = nullptr;
     // From 0, the cards, to 1, the composer.
     std::unique_ptr<Glide> m_modeFade;
+    // From 0, no recents column, to 1, the column in place.
+    std::unique_ptr<Glide> m_recentsShown;
     std::unique_ptr<FrameTicker> m_ticker;
 };
 

@@ -255,4 +255,20 @@ TEST_P(TimersLayout, StartIsCentredOnThePicker)
     }
 }
 
+TEST_P(TimersLayout, RunningCardsStayBesideRecents)
+{
+    timermath::saveRecents(fixture.context.settings(), {{300000, "Tea", "chime"}});
+    addTimer(300000);
+    open();
+    ASSERT_TRUE(fixture.driver.shows("timers:recents"));
+    ASSERT_TRUE(fixture.driver.shows("timers:card"));
+    const RectF recents = fixture.driver.frame("timers:recents");
+    const RectF card = fixture.driver.frame("timers:card");
+    EXPECT_NEAR(recents.x, clockapp::style::pagePadding, tolerance());
+    EXPECT_LE(recents.right() + TimerComposer::RecentsGap, card.x + tolerance());
+    const double left = recents.right() + TimerComposer::RecentsGap;
+    const double right = clockapp::style::windowWidth - clockapp::style::pagePadding;
+    EXPECT_NEAR(card.x + card.width / 2, (left + right) / 2, 1);
+}
+
 INSTANTIATE_TEST_SUITE_P(Scales, TimersLayout, testing::Values(1.0, 1.75, 2.0));

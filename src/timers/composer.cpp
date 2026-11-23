@@ -100,7 +100,7 @@ protected:
 
 // The recent timers' rows: the duration, the label and sound under it, and
 // a play button that keeps one gap to the row's end, top and bottom.
-class TimerComposer::RecentList : public View
+class RecentsPanel::RecentList : public View
 {
 public:
     explicit RecentList(Window* window)
@@ -195,9 +195,59 @@ private:
     std::vector<Row> m_rows;
 };
 
+RecentsPanel::RecentsPanel(Window* window)
+{
+    m_title = addChild<Label>(tr("Recent"));
+    m_title->setName("timers:recents-title");
+    m_title->setFontSize(15);
+    m_title->setWeight(600);
+    m_view = addChild<ScrollView>();
+    m_view->setName("timers:recents");
+    m_view->setScrollDirections(false, true);
+    m_view->setCornerRadius(Theme::current().bigRadius);
+    m_list = m_view->setContent<RecentList>(window);
+    m_list->onStart = [this](size_t index) {
+        if (onStartRecent)
+            onStartRecent(index);
+    };
+}
+
+RecentsPanel::~RecentsPanel() = default;
+
+void RecentsPanel::setRecents(const std::vector<timermath::Recent>& recents)
+{
+    m_list->setRecents(recents);
+    requestLayout();
+    requestPaint();
+}
+
+RectF RecentsPanel::cardRect() const
+{
+    const double titleHeight = std::ceil(m_title->sizeHint().height);
+    const double top = titleHeight + 8;
+    const double room = std::max(0.0, geometry().height - top);
+    const double width = geometry().width;
+    const double height = std::min(room, m_list->heightForWidth(width));
+    return {0, top, width, height};
+}
+
+void RecentsPanel::layout()
+{
+    const double titleHeight = std::ceil(m_title->sizeHint().height);
+    m_title->setGeometry({4, 0, std::max(0.0, geometry().width - 4), titleHeight});
+    m_view->setGeometry(cardRect());
+}
+
+void RecentsPanel::paint(Painter& painter)
+{
+    const RectF card = cardRect();
+    if (card.height <= 0)
+        return;
+    const Theme& theme = Theme::current();
+    painter.fillRoundedRect(card, theme.bigRadius, style::card(), themeCorners());
+}
+
 TimerComposer::TimerComposer(Window* window)
-    : m_window(window)
-    , m_recentsShown(std::make_unique<Glide>(window, 380, 0))
 {
     setName("timers:composer");
     m_picker = addChild<DurationPicker>(window);
@@ -241,26 +291,6 @@ TimerComposer::TimerComposer(Window* window)
     };
     m_label->onAccepted = [this] { m_start->onClicked(); };
 
-    m_recentsTitle = addChild<Label>(tr("Recent"));
-    m_recentsTitle->setName("timers:recents-title");
-    m_recentsTitle->setFontSize(15);
-    m_recentsTitle->setWeight(600);
-    m_recentsView = addChild<ScrollView>();
-    m_recentsView->setName("timers:recents");
-    m_recentsView->setScrollDirections(false, true);
-    m_recentsView->setCornerRadius(Theme::current().bigRadius);
-    m_recents = m_recentsView->setContent<RecentList>(window);
-    m_recents->onStart = [this](size_t index) {
-        if (onStartRecent)
-            onStartRecent(index);
-    };
-    m_recentsTitle->setVisible(false);
-    m_recentsView->setVisible(false);
-    m_recentsShown->onChanged = [this] {
-        requestLayout();
-        requestPaint();
-    };
-
     m_picker->setDurationMs(5 * 60 * 1000);
     updateStart();
 }
@@ -284,11 +314,13 @@ void TimerComposer::clearLabel()
     m_label->setText({});
 }
 
-void TimerComposer::setTopMargin(double margin)
+void TimerComposer::setMargins(double top, double left, double right)
 {
-    if (margin == m_topMargin)
+    if (top == m_topMargin && left == m_leftMargin && right == m_rightMargin)
         return;
-    m_topMargin = margin;
+    m_topMargin = top;
+    m_leftMargin = left;
+    m_rightMargin = right;
     requestLayout();
 }
 
@@ -302,42 +334,13 @@ void TimerComposer::updateStart()
     m_start->setEnabled(m_picker->durationMs() > 0);
 }
 
-void TimerComposer::setRecents(const std::vector<timermath::Recent>& recents)
-{
-    if (!recents.empty())
-        m_recents->setRecents(recents);
-    const double shown = recents.empty() ? 0 : 1;
-    // The list keeps its rows while it slides away, and drops them after.
-    if (recents.empty() && !m_recentsShown->isMoving() && m_recentsShown->value() == 0)
-        m_recents->setRecents(recents);
-    if (window() && isVisible() && geometry().width > 0)
-        m_recentsShown->setTarget(shown);
-    else
-        m_recentsShown->jumpTo(shown);
-    requestLayout();
-}
-
 RectF TimerComposer::groupRect() const
 {
-    const double width = geometry().width;
-    const double shown = m_recentsShown->value();
-    const double left = style::pagePadding + shown * (RecentsWidth + RecentsGap);
-    const double right = width - style::pagePadding;
-    const double column = std::max(0.0, std::min(ColumnWidth, right - left));
-    const double x = std::round(left + (right - left - column) / 2);
+    const double room = std::max(0.0, geometry().width - m_leftMargin - m_rightMargin);
+    const double column = std::min(ColumnWidth, room);
+    const double x = std::round(m_leftMargin + (room - column) / 2);
     const double height = m_picker->sizeHint().height + 12 + m_options->sizeHint().height + 16 + StartDiameter;
     return {x, m_topMargin + 16, column, height};
-}
-
-RectF TimerComposer::recentsCardRect() const
-{
-    const double shown = m_recentsShown->value();
-    const double x = std::round(style::pagePadding - (1 - shown) * (RecentsWidth + style::pagePadding));
-    const double titleHeight = std::ceil(m_recentsTitle->sizeHint().height);
-    const double top = m_topMargin + 16 + titleHeight + 8;
-    const double room = std::max(0.0, geometry().height - top - style::pagePadding);
-    const double height = std::min(room, m_recents->heightForWidth(RecentsWidth));
-    return {x, top, RecentsWidth, height};
 }
 
 void TimerComposer::layout()
@@ -355,31 +358,6 @@ void TimerComposer::layout()
     const double scale = window() ? window()->scale() : 1;
     m_start->setGeometry({style::snap(group.x + (group.width - StartDiameter) / 2, scale), buttonsTop, StartDiameter,
                           StartDiameter});
-
-    const double shown = m_recentsShown->value();
-    const bool visible = shown > 0;
-    m_recentsTitle->setVisible(visible);
-    m_recentsView->setVisible(visible);
-    if (!visible && !m_recentsShown->isMoving())
-        m_recents->setRecents({});
-    const RectF card = recentsCardRect();
-    const double titleHeight = std::ceil(m_recentsTitle->sizeHint().height);
-    m_recentsTitle->setGeometry({card.x + 4, m_topMargin + 16, RecentsWidth - 4, titleHeight});
-    m_recentsTitle->setOpacity(shown);
-    m_recentsView->setGeometry(card);
-    m_recentsView->setOpacity(shown);
-}
-
-void TimerComposer::paint(Painter& painter)
-{
-    const double shown = m_recentsShown->value();
-    if (shown <= 0)
-        return;
-    const Theme& theme = Theme::current();
-    painter.save();
-    painter.multiplyOpacity(shown);
-    painter.fillRoundedRect(recentsCardRect(), theme.bigRadius, style::card(), themeCorners());
-    painter.restore();
 }
 
 } // namespace clockapp

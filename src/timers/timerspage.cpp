@@ -41,11 +41,13 @@ public:
     {
     }
 
-    void setTopMargin(double margin)
+    void setMargins(double top, double left, double right)
     {
-        if (margin == m_topMargin)
+        if (top == m_topMargin && left == m_leftMargin && right == m_rightMargin)
             return;
-        m_topMargin = margin;
+        m_topMargin = top;
+        m_leftMargin = left;
+        m_rightMargin = right;
         requestLayout();
     }
 
@@ -123,7 +125,8 @@ protected:
         const int columns = columnCount(width);
         const int used = std::min<int>(columns, std::max<int>(1, int(m_entries.size())));
         const double rowWidth = used * TimerCard::Width + (used - 1) * CardGap;
-        const double left = style::centred(width, rowWidth);
+        const double room = std::max(0.0, width - m_leftMargin - m_rightMargin);
+        const double left = m_leftMargin + style::centred(room, rowWidth);
         for (size_t i = 0; i < m_entries.size(); ++i) {
             Entry& entry = m_entries[i];
             const double x = left + double(int(i) % columns) * (TimerCard::Width + CardGap);
@@ -168,14 +171,16 @@ private:
         bool placed = false;
     };
 
-    static int columnCount(double width)
+    int columnCount(double width) const
     {
-        const double room = width - 2 * style::pagePadding + CardGap;
+        const double room = width - m_leftMargin - m_rightMargin + CardGap;
         return std::max(1, int(room / (TimerCard::Width + CardGap)));
     }
 
     Window* m_window;
     double m_topMargin = 0;
+    double m_leftMargin = 0;
+    double m_rightMargin = 0;
     // Laid out once: cards from now on are new to the user.
     bool m_shown = false;
     std::vector<Entry> m_entries;
@@ -186,6 +191,7 @@ TimersPage::TimersPage(PageContext& context, ClockStore* store)
     : m_context(context)
     , m_store(store ? *store : ClockStore::inFolder(context.paths().data))
     , m_modeFade(std::make_unique<Glide>(&context.window(), 320, 1))
+    , m_recentsShown(std::make_unique<Glide>(&context.window(), 380, 0))
     , m_ticker(std::make_unique<FrameTicker>(&context.window()))
 {
     setName("page:timers");
@@ -200,10 +206,12 @@ TimersPage::TimersPage(PageContext& context, ClockStore* store)
     m_backdrop->setSeparatorVisible(false);
 
     m_composer = addChild<TimerComposer>(window);
-
     m_composer->onStart = [this] { startFromComposer(); };
-    m_composer->onStartRecent = [this](size_t index) { startRecent(index); };
     m_composer->onCancel = [this] { showComposer(false); };
+
+    m_recentsPanel = addChild<RecentsPanel>(window);
+    m_recentsPanel->onStartRecent = [this](size_t index) { startRecent(index); };
+    m_recentsPanel->setVisible(false);
 
     m_gridView->setLayered(true);
     m_composer->setLayered(true);
@@ -213,10 +221,14 @@ TimersPage::TimersPage(PageContext& context, ClockStore* store)
         if (!m_modeFade->isMoving())
             requestPaint();
     };
+    m_recentsShown->onChanged = [this] {
+        requestLayout();
+        requestPaint();
+    };
     m_ticker->onFrame = [this](uint64_t) { refresh(); };
 
     m_recents = timermath::loadRecents(context.settings());
-    m_composer->setRecents(m_recents);
+    updateRecents();
 
     m_storeChanged = m_store.changed.connect([this] { sync(); });
     m_store.load();
@@ -247,7 +259,7 @@ void TimersPage::start(const timermath::Recent& recent)
     timermath::remember(m_recents, {timer.durationMs, timer.label, timer.sound});
     timermath::saveRecents(m_context.settings(), m_recents);
     m_context.saveSettings();
-    m_composer->setRecents(m_recents);
+    updateRecents();
     clockstore::ensureAlarmService(m_context.bus());
     m_fillIn = m_store.setTimer(timer);
     showComposer(false);
@@ -330,6 +342,21 @@ void TimersPage::refresh()
     updateTicking();
 }
 
+void TimersPage::updateRecents()
+{
+    if (!m_recents.empty())
+        m_recentsPanel->setRecents(m_recents);
+    const double shown = m_recents.empty() ? 0 : 1;
+    // The list keeps its rows while it slides away, and drops them after.
+    if (m_recents.empty() && !m_recentsShown->isMoving() && m_recentsShown->value() == 0)
+        m_recentsPanel->setRecents(m_recents);
+    if (window() && isVisible() && geometry().width > 0)
+        m_recentsShown->setTarget(shown);
+    else
+        m_recentsShown->jumpTo(shown);
+    requestLayout();
+}
+
 void TimersPage::updateTicking()
 {
     bool running = false;
@@ -370,7 +397,7 @@ std::vector<MenuAction> TimersPage::editActions()
         m_recents.clear();
         timermath::saveRecents(m_context.settings(), m_recents);
         m_context.saveSettings();
-        m_composer->setRecents(m_recents);
+        updateRecents();
         m_context.actionsChanged(*this);
     };
     return {clear};
@@ -403,23 +430,41 @@ void TimersPage::layout()
 {
     const RectF area = localRect();
     const double fade = m_modeFade->value();
+    const double shown = m_recentsShown->value();
     const double header = headerHeight();
     const double drift = 12;
 
-    m_grid->setTopMargin(header + 16);
-    m_composer->setTopMargin(header);
+    const double contentX = shown > 0
+        ? std::round(style::pagePadding + shown * (TimerComposer::RecentsWidth + TimerComposer::RecentsGap))
+        : 0;
+    const double contentWidth = std::max(0.0, area.width - contentX);
+    const double leftMargin = (1 - shown) * style::pagePadding;
+
+    m_grid->setMargins(header + 16, leftMargin, style::pagePadding);
+    m_composer->setMargins(header, leftMargin, style::pagePadding);
     // The cards scroll under the frosted header: the bar starts below it.
     m_gridView->setVerticalBarPadding(header + ScrollBar::inset, 0);
 
     m_gridView->setVisible(fade < 1);
     m_backdrop->setVisible(fade < 1);
     m_gridView->setOpacity(1 - fade);
-    m_gridView->setGeometry({0, std::round(-drift * fade), area.width, area.height});
-    m_backdrop->setGeometry({0, 0, area.width, header});
+    m_gridView->setGeometry({contentX, std::round(-drift * fade), contentWidth, area.height});
+    m_backdrop->setGeometry({contentX, 0, contentWidth, header});
 
     m_composer->setVisible(fade > 0);
     m_composer->setOpacity(fade);
-    m_composer->setGeometry({0, std::round(drift * (1 - fade)), area.width, area.height});
+    m_composer->setGeometry({contentX, std::round(drift * (1 - fade)), contentWidth, area.height});
+
+    const bool recentsVisible = shown > 0;
+    m_recentsPanel->setVisible(recentsVisible);
+    m_recentsPanel->setOpacity(shown);
+    if (!recentsVisible && !m_recentsShown->isMoving() && m_recents.empty())
+        m_recentsPanel->setRecents({});
+    const double recentsX =
+        std::round(style::pagePadding - (1 - shown) * (TimerComposer::RecentsWidth + style::pagePadding));
+    const double recentsTop = header + 16;
+    m_recentsPanel->setGeometry({recentsX, recentsTop, TimerComposer::RecentsWidth,
+                                 std::max(0.0, area.height - recentsTop - style::pagePadding)});
 
     if (!m_fillIn.empty()) {
         if (TimerCard* card = m_grid->card(m_fillIn))

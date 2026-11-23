@@ -24,10 +24,34 @@ namespace clockapp {
 class DurationPicker;
 class RoundButton;
 
+// The recent timers in a card of their own at the page's start, each started
+// again by a click.
+class RecentsPanel : public cutefish::ui::View
+{
+public:
+    explicit RecentsPanel(cutefish::ui::Window* window);
+    ~RecentsPanel() override;
+
+    void setRecents(const std::vector<timermath::Recent>& recents);
+
+    std::function<void(size_t index)> onStartRecent;
+
+protected:
+    void layout() override;
+    void paint(cutefish::ui::Painter& painter) override;
+
+private:
+    class RecentList;
+
+    cutefish::ui::RectF cardRect() const;
+
+    cutefish::ui::Label* m_title = nullptr;
+    cutefish::ui::ScrollView* m_view = nullptr;
+    RecentList* m_list = nullptr;
+};
+
 // Where a timer is set: the drums, a card of rows for its label and sound,
-// and Start, centred in the page. Recent timers, when there are any, stand
-// in a column of their own at the page's start, each started again by a
-// click; the column slides in and out on a spring as they come and go.
+// and Start, centred in the area beside Recent (or the whole page when none).
 class TimerComposer : public cutefish::ui::View
 {
 public:
@@ -41,50 +65,39 @@ public:
     ~TimerComposer() override;
 
     DurationPicker* picker() const { return m_picker; }
-    void setRecents(const std::vector<timermath::Recent>& recents);
     // Cancel goes back to the running timers, when there are any.
     void setCancelVisible(bool visible);
     // The label back to empty, the drums kept as they were.
     void clearLabel();
-    // Space left free at the top for the header.
-    void setTopMargin(double margin);
+    // Space left free at the top for the header and at the sides.
+    void setMargins(double top, double left, double right);
 
     std::string label() const;
     std::string sound() const;
 
-    // The recent timers' list, which scrolls on its own.
-    cutefish::ui::ScrollView* recentsView() const { return m_recentsView; }
     // The picker, its rows and Start, in the composer's coordinates.
     cutefish::ui::RectF groupRect() const;
 
     std::function<void()> onStart;
     std::function<void()> onCancel;
-    std::function<void(size_t index)> onStartRecent;
 
 protected:
     void layout() override;
-    void paint(cutefish::ui::Painter& painter) override;
 
 private:
     class OptionsCard;
-    class RecentList;
 
-    cutefish::ui::RectF recentsCardRect() const;
-    void updateStart();
-
-    cutefish::ui::Window* m_window;
     double m_topMargin = 0;
+    double m_leftMargin = 0;
+    double m_rightMargin = 0;
     DurationPicker* m_picker = nullptr;
     OptionsCard* m_options = nullptr;
     cutefish::ui::TextField* m_label = nullptr;
     cutefish::ui::RowComboBox* m_sound = nullptr;
     RoundButton* m_cancel = nullptr;
     RoundButton* m_start = nullptr;
-    cutefish::ui::Label* m_recentsTitle = nullptr;
-    cutefish::ui::ScrollView* m_recentsView = nullptr;
-    RecentList* m_recents = nullptr;
-    // From 0, no column, to 1, the column in place.
-    std::unique_ptr<Glide> m_recentsShown;
+
+    void updateStart();
 };
 
 } // namespace clockapp
