@@ -3,6 +3,8 @@
 The clock of Cutefish Desktop: the time in the cities you follow, alarms,
 a stopwatch and timers, each a tab of one window.
 
+<img src="screenshots/clock.png" alt="Clock" width="799">
+
 Alarms and timers ring through a small session service, so they go off
 with the window closed and are back where they were after a restart.
 
